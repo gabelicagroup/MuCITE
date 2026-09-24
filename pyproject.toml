@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=75,<76", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mucite"
+version = "0.1.0"
+description = "MuCITE: ESI-MS ion transport with PIC, RF fields, and independent IICT collision physics"
+readme = "README.md"
+requires-python = "==3.11.*"
+authors = [{name = "Dr. Yihui Yan"}]
+license = {file = "LICENSE.md"}
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "numpy==2.4.6",
+    "scipy==1.17.1",
+    "taichi==1.7.4",
+    "matplotlib==3.10.9",
+    "pandas==3.0.3",
+    "pillow==12.2.0",
+    "pyamg==5.3.0",
+]
+
+[project.scripts]
+mucite = "src.render.cli.runner:run_cli"
+mucite-gui = "src.render.gui:launch_main_window"
+
+[project.optional-dependencies]
+test = ["pytest==8.3.5"]
+hdf5 = ["h5py>=3.11,<4"]
+
+[tool.setuptools]
+license-files = ["LICENSE.md", "THIRD_PARTY_NOTICES.md"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src", "src.*"]
+exclude = ["src.env.collisions.ionspa", "src.env.collisions.ionspa.*"]
+
+[tool.setuptools.package-data]
+"src.config.presets" = ["*.json"]
+
+[tool.pytest.ini_options]
+minversion = "8.3"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["-ra", "--strict-config", "--strict-markers"]
+markers = [
+    "physics: numerical or particle-trajectory regression tests",
+    "slow: tests unsuitable for the default smoke-test run",
+]

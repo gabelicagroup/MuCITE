@@ -1,0 +1,9 @@
+# Third-party packages are installed separately; no IonSPA dependency is installed.
+matplotlib==3.10.9
+numpy==2.4.6
+pandas==3.0.3
+pillow==12.2.0
+pyamg==5.3.0
+scipy==1.17.1
+taichi==1.7.4
+# Direct dependencies only; transitive dependencies are not fully locked.

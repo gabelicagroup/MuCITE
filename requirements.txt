@@ -1,0 +1,2 @@
+# Exact versions exercised by the release validation. Python 3.11 required.
+-r requirements.lock

@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Please cite MuCITE and the relevant physics papers when using this software."
+title: "MuCITE: ESI-MS ion trajectory simulation"
+type: software
+version: 0.1.0
+license: GPL-3.0-only
+authors:
+  - family-names: Yan
+    given-names: Yihui
+abstract: "Three-dimensional ion transport with axisymmetric PIC, RF fields, and independent paper-driven IICT collision physics."
+# Add repository-code and a release DOI when available.

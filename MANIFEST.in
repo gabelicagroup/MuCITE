@@ -1,0 +1,15 @@
+include README.md LICENSE.md THIRD_PARTY_NOTICES.md CITATION.cff
+include requirements*.txt requirements.lock
+recursive-include configs *.json *.md
+recursive-include docs *.md *.json
+recursive-include examples *.py *.md
+recursive-include tests *.py
+recursive-include tools *.py
+prune src/env/collisions/ionspa
+prune outputs
+prune external
+prune manuscript
+prune E_field
+prune F_field
+global-exclude *.pyc
+global-exclude hcprofiles*.json
