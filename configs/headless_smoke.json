@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "simulation": {
+    "ion_count": 8,
+    "total_time_s": 1e-9,
+    "macro_time_step_s": 5e-10,
+    "max_time_step_s": 1e-10,
+    "random_seed": 7,
+    "collision_physics_backend": "iict-lite",
+    "ionspa_backend": "local",
+    "iict_parameter_config_path": "configs/iict_lite_parameters.example.json",
+    "collision_model": "explicit",
+    "fragmentation_mode": "off",
+    "grid_nr": 9,
+    "grid_nz": 17,
+    "pic_grid_nr": 0,
+    "pic_grid_nz": 0,
+    "pic_space_charge_scale": 1.0,
+    "pic_poisson_backend": "amg",
+    "static_field_path": null,
+    "electrode_mask_path": null,
+    "rf_frequency_hz": 0.0,
+    "rf_peak_voltage_v": 0.0,
+    "initial_position_jitter_m": 0.0,
+    "initial_velocity_jitter_m_per_s": 0.0
+  },
+  "ion": {
+    "name": "demonstration_ion",
+    "num_atoms": 72,
+    "charge_state": 1,
+    "collision_cross_section_m2": 2e-18,
+    "initial_position_m": [0.0, 0.0, 0.005],
+    "initial_velocity_m_per_s": [0.0, 0.0, 250.0]
+  },
+  "execution": {
+    "backend": "cpu",
+    "no_window": true,
+    "progress": false
+  },
+  "output": {
+    "export_every": 0,
+    "snapshot_plots_enabled": false,
+    "report": false
+  }
+}
