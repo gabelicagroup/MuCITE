@@ -1,0 +1,13 @@
+"""Constants shared by collision and IonSPA adapters."""
+
+PSEUDOATOM_MASS_FLOOR_DA = 1.0
+PSEUDOATOM_MASS_CEILING_DA = 1.0e6
+EXPECTED_BUNDLED_VERSION = "1.0.1f"
+SUPPORTED_IONSPA_BACKENDS = frozenset({"bundled", "approximate", "local"})
+
+__all__ = [
+    "EXPECTED_BUNDLED_VERSION",
+    "PSEUDOATOM_MASS_CEILING_DA",
+    "PSEUDOATOM_MASS_FLOOR_DA",
+    "SUPPORTED_IONSPA_BACKENDS",
+]
