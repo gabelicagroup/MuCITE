@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "heat_capacity": {
+    "type": "classical",
+    "num_atoms": 72
+  },
+  "pseudoatom_mass": {
+    "type": "constant",
+    "mass_da": 30.0
+  },
+  "fragmentation": {
+    "type": "none"
+  }
+}
