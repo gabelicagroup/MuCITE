@@ -1,0 +1,2185 @@
+{
+  "schema_version": 1,
+  "module_count": 242,
+  "files": [
+    {
+      "path": "src/__init__.py",
+      "sha256": "9ee06f92b6cda9ea231192cfd3ca642b8950450d700cf57f894e6f37bddf78c7",
+      "lines": 6,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "9ee06f92b6cda9ea231192cfd3ca642b8950450d700cf57f894e6f37bddf78c7",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/__main__.py",
+      "sha256": "2715ca18a7c5de7590e202effa554c168a69776d93c8386e0f7abf235e4a44ce",
+      "lines": 12,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "2715ca18a7c5de7590e202effa554c168a69776d93c8386e0f7abf235e4a44ce",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/agents/__init__.py",
+      "sha256": "54d681f3ae9ee6c080aca2e683066460b43701bb1a253b2e86049d1077530f75",
+      "lines": 36,
+      "max_function_lines": 10,
+      "max_class_lines": 0,
+      "original_sha256": "54d681f3ae9ee6c080aca2e683066460b43701bb1a253b2e86049d1077530f75",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/agents/events.py",
+      "sha256": "d861f067127be6cee015ddb652600bf07610ba9f236341c8bfcdb51b49f1993d",
+      "lines": 121,
+      "max_function_lines": 28,
+      "max_class_lines": 71,
+      "original_sha256": "d861f067127be6cee015ddb652600bf07610ba9f236341c8bfcdb51b49f1993d",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/agents/ion.py",
+      "sha256": "2de6cbfeb44b8ec22a80c130dc699890184954af33caa954cdff0fe02aa53a6c",
+      "lines": 24,
+      "max_function_lines": 0,
+      "max_class_lines": 11,
+      "original_sha256": "2de6cbfeb44b8ec22a80c130dc699890184954af33caa954cdff0fe02aa53a6c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/agents/slot_state.py",
+      "sha256": "bfb4a86f36afe0bc5b58d030359e97826c8b89966d7122dfcebe419900f034ef",
+      "lines": 108,
+      "max_function_lines": 29,
+      "max_class_lines": 89,
+      "original_sha256": "bfb4a86f36afe0bc5b58d030359e97826c8b89966d7122dfcebe419900f034ef",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/agents/taichi_cloud.py",
+      "sha256": "e0c45ec1c1db553717af93c7945759f7677192c262c8d688911a5ad15741d46e",
+      "lines": 126,
+      "max_function_lines": 33,
+      "max_class_lines": 120,
+      "original_sha256": "e0c45ec1c1db553717af93c7945759f7677192c262c8d688911a5ad15741d46e",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/__init__.py",
+      "sha256": "544a75bc2177d508cd54381c6dae59598ad789ba091af0ed358b3e0f27e3048b",
+      "lines": 125,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "544a75bc2177d508cd54381c6dae59598ad789ba091af0ed358b3e0f27e3048b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/cli_adapter.py",
+      "sha256": "33e96f8d8901fd242b50964fca2fb263f1021520188f711ddc57191bf0030d77",
+      "lines": 118,
+      "max_function_lines": 29,
+      "max_class_lines": 0,
+      "original_sha256": "33e96f8d8901fd242b50964fca2fb263f1021520188f711ddc57191bf0030d77",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/constants.py",
+      "sha256": "c87affadb93a641f2a10ca669ef1f7351272763f3a05d9959fb37071b4c42c6c",
+      "lines": 52,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "c87affadb93a641f2a10ca669ef1f7351272763f3a05d9959fb37071b4c42c6c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/contracts.py",
+      "sha256": "7a9fbd3770a541684b6c083edb8a4faab586412403c4c90a016760782718a09d",
+      "lines": 91,
+      "max_function_lines": 0,
+      "max_class_lines": 25,
+      "original_sha256": "7a9fbd3770a541684b6c083edb8a4faab586412403c4c90a016760782718a09d",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/factories.py",
+      "sha256": "d629e09b5c00bab7c31dd10f4465563fab781a59c1dd0d831a728cad5bf6bf69",
+      "lines": 78,
+      "max_function_lines": 13,
+      "max_class_lines": 0,
+      "original_sha256": "d629e09b5c00bab7c31dd10f4465563fab781a59c1dd0d831a728cad5bf6bf69",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/iict_validation.py",
+      "sha256": "a4f6186299bca286012edba0832a4f8baf3ed0053d06e47ad81c17ecde9bb0d1",
+      "lines": 94,
+      "max_function_lines": 20,
+      "max_class_lines": 0,
+      "original_sha256": "a4f6186299bca286012edba0832a4f8baf3ed0053d06e47ad81c17ecde9bb0d1",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/json_config.py",
+      "sha256": "ae8474ccf892e353be48374c88bb21d6d9b0324b4b865b3426f47f22b9a5ac6b",
+      "lines": 276,
+      "max_function_lines": 41,
+      "max_class_lines": 8,
+      "original_sha256": "ae8474ccf892e353be48374c88bb21d6d9b0324b4b865b3426f47f22b9a5ac6b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/models.py",
+      "sha256": "723cd83faa2680d55e99b72075ae9d26f6efadd2bba5e0941e89c17d4cfbc6d0",
+      "lines": 190,
+      "max_function_lines": 0,
+      "max_class_lines": 122,
+      "original_sha256": "723cd83faa2680d55e99b72075ae9d26f6efadd2bba5e0941e89c17d4cfbc6d0",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/presets/__init__.py",
+      "sha256": "e791183ab912a49d6f1b45c3a251449cf999f69bfa972d3afb51dac19449ca31",
+      "lines": 1,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": null,
+      "change": "added"
+    },
+    {
+      "path": "src/config/release_defaults.py",
+      "sha256": "9305ea1429034773d5afcde1b7c3be23a47ff3b2e10048682dbf91094721bdc9",
+      "lines": 27,
+      "max_function_lines": 10,
+      "max_class_lines": 0,
+      "original_sha256": null,
+      "change": "added"
+    },
+    {
+      "path": "src/config/tuning_validation.py",
+      "sha256": "c0311a755b1d4a8cffdaefd904ea747eecb36f7402af252545101e463c1fe826",
+      "lines": 116,
+      "max_function_lines": 34,
+      "max_class_lines": 0,
+      "original_sha256": "c0311a755b1d4a8cffdaefd904ea747eecb36f7402af252545101e463c1fe826",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/config/validation.py",
+      "sha256": "2dc88eb544ed65a7df3c60797a5f44264d18d87eb2b6114bc71cc25444a9aee3",
+      "lines": 463,
+      "max_function_lines": 30,
+      "max_class_lines": 0,
+      "original_sha256": "2dc88eb544ed65a7df3c60797a5f44264d18d87eb2b6114bc71cc25444a9aee3",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/__init__.py",
+      "sha256": "0ae69248c0e809faf329824f9039c46b298c28144e7a162c6172fa9217034a77",
+      "lines": 37,
+      "max_function_lines": 6,
+      "max_class_lines": 0,
+      "original_sha256": "0ae69248c0e809faf329824f9039c46b298c28144e7a162c6172fa9217034a77",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/cancellation.py",
+      "sha256": "0c59edff6892a7a35221a0c99960796a260748c2cc3f485a3eda92f98fd79065",
+      "lines": 22,
+      "max_function_lines": 2,
+      "max_class_lines": 15,
+      "original_sha256": "0c59edff6892a7a35221a0c99960796a260748c2cc3f485a3eda92f98fd79065",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/concurrency.py",
+      "sha256": "6b80fcd956a620da6a99ab68cedfed9809aa08754a968b34a74fdd3248a8f08c",
+      "lines": 36,
+      "max_function_lines": 7,
+      "max_class_lines": 24,
+      "original_sha256": "6b80fcd956a620da6a99ab68cedfed9809aa08754a968b34a74fdd3248a8f08c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/engine.py",
+      "sha256": "3d4ff9f758c2e531ef90e682a7642866f4f94b2752655f42327e1d3c75a20cf9",
+      "lines": 165,
+      "max_function_lines": 35,
+      "max_class_lines": 147,
+      "original_sha256": "3d4ff9f758c2e531ef90e682a7642866f4f94b2752655f42327e1d3c75a20cf9",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/events.py",
+      "sha256": "6246a2bbdc607e624dcf30087efb45beb2fbb6832bb87f3bc0af76b44303ac2f",
+      "lines": 52,
+      "max_function_lines": 9,
+      "max_class_lines": 19,
+      "original_sha256": "6246a2bbdc607e624dcf30087efb45beb2fbb6832bb87f3bc0af76b44303ac2f",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/macro_step.py",
+      "sha256": "4545b41307c402613b4e54dfc865103e940e5a393ca7be68a56f5599e9f34435",
+      "lines": 194,
+      "max_function_lines": 38,
+      "max_class_lines": 6,
+      "original_sha256": "4545b41307c402613b4e54dfc865103e940e5a393ca7be68a56f5599e9f34435",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/metrics.py",
+      "sha256": "85c73cd37edd2afd34008713a270c70b1d86ba6b1d7653221ba9eaf4e0f8c99e",
+      "lines": 368,
+      "max_function_lines": 24,
+      "max_class_lines": 113,
+      "original_sha256": "85c73cd37edd2afd34008713a270c70b1d86ba6b1d7653221ba9eaf4e0f8c99e",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/micro_step.py",
+      "sha256": "de0c504cd18b66c22d24e6d706068d1bb069f412b6291c35dc277e7f2bd2db85",
+      "lines": 300,
+      "max_function_lines": 39,
+      "max_class_lines": 5,
+      "original_sha256": "de0c504cd18b66c22d24e6d706068d1bb069f412b6291c35dc277e7f2bd2db85",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/policy.py",
+      "sha256": "651665cbeb43895b5a76fb6d088cde27d6aca2503f823d1f8849cfad0e1e652b",
+      "lines": 44,
+      "max_function_lines": 22,
+      "max_class_lines": 29,
+      "original_sha256": "651665cbeb43895b5a76fb6d088cde27d6aca2503f823d1f8849cfad0e1e652b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/ports.py",
+      "sha256": "4eaffcf2ca335c515af7ab87cdd408de9286aed603154dd6e938042dacc4c7c6",
+      "lines": 181,
+      "max_function_lines": 8,
+      "max_class_lines": 125,
+      "original_sha256": "4eaffcf2ca335c515af7ab87cdd408de9286aed603154dd6e938042dacc4c7c6",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/randomness.py",
+      "sha256": "5baf7323d81d11e3fd70098b4d8ecf3caeb78fc54324723b84a8078bce153d98",
+      "lines": 42,
+      "max_function_lines": 6,
+      "max_class_lines": 31,
+      "original_sha256": "5baf7323d81d11e3fd70098b4d8ecf3caeb78fc54324723b84a8078bce153d98",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/result_builder.py",
+      "sha256": "aa149f79113a6ae195c7a4d384b76abedc4929006bb22eaf13048604470c7769",
+      "lines": 74,
+      "max_function_lines": 40,
+      "max_class_lines": 0,
+      "original_sha256": "aa149f79113a6ae195c7a4d384b76abedc4929006bb22eaf13048604470c7769",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/run_state.py",
+      "sha256": "2898902823ac26b3cc6ffaa95524fe988fe73c2006e81179c830c3cab2c40c59",
+      "lines": 115,
+      "max_function_lines": 13,
+      "max_class_lines": 34,
+      "original_sha256": "2898902823ac26b3cc6ffaa95524fe988fe73c2006e81179c830c3cab2c40c59",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/simulation.py",
+      "sha256": "d05856d6b992b0a552657701bb6cd39810a4b1e9944c9a451d0a42cdbed3002c",
+      "lines": 304,
+      "max_function_lines": 45,
+      "max_class_lines": 72,
+      "original_sha256": "d05856d6b992b0a552657701bb6cd39810a4b1e9944c9a451d0a42cdbed3002c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/core/timestep.py",
+      "sha256": "387035d842e9c172c5c14a1c9acf008a2ea11168a3e232f86b66fd2edaca677b",
+      "lines": 104,
+      "max_function_lines": 37,
+      "max_class_lines": 22,
+      "original_sha256": "387035d842e9c172c5c14a1c9acf008a2ea11168a3e232f86b66fd2edaca677b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/__init__.py",
+      "sha256": "eafa473cfe59a814e6832f4694a71f62ce211f19e28a42b9b69b28b9b04e73a9",
+      "lines": 1,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "eafa473cfe59a814e6832f4694a71f62ce211f19e28a42b9b69b28b9b04e73a9",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/artifacts/__init__.py",
+      "sha256": "2466e3613e7ed9fcd8d77c73617a6f9247ab4a01d3272f429921d5070d7721ab",
+      "lines": 3,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "2466e3613e7ed9fcd8d77c73617a6f9247ab4a01d3272f429921d5070d7721ab",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/artifacts/grid_metadata.py",
+      "sha256": "d80c6de58116d06c4f9f5dcb54059c9c58a7680b4d6c8f4a739e8ef77d5b7b1d",
+      "lines": 330,
+      "max_function_lines": 49,
+      "max_class_lines": 11,
+      "original_sha256": "d80c6de58116d06c4f9f5dcb54059c9c58a7680b4d6c8f4a739e8ef77d5b7b1d",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/artifacts/patxt.py",
+      "sha256": "cef17d766e04a9ef50ce254c61fe573e5c0f8afe1e4cf6c84ea967786171768c",
+      "lines": 466,
+      "max_function_lines": 40,
+      "max_class_lines": 0,
+      "original_sha256": "cef17d766e04a9ef50ce254c61fe573e5c0f8afe1e4cf6c84ea967786171768c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/artifacts/patxt_models.py",
+      "sha256": "151a45a42284ff6abcd1d74f1c43c85b3824835ba82d7dd6a5f4d5ef0410a25c",
+      "lines": 65,
+      "max_function_lines": 0,
+      "max_class_lines": 15,
+      "original_sha256": "151a45a42284ff6abcd1d74f1c43c85b3824835ba82d7dd6a5f4d5ef0410a25c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/artifacts/schema.py",
+      "sha256": "cde2f1440b654b8d2c14eb26d14c8d184cbe9e994125080b48b43f9e8d90459a",
+      "lines": 30,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "cde2f1440b654b8d2c14eb26d14c8d184cbe9e994125080b48b43f9e8d90459a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/benchmarks/__init__.py",
+      "sha256": "69fd8446c910a96276af18d0212cee028fb44ce77edc70cf869677ab0e67a33f",
+      "lines": 1,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "69fd8446c910a96276af18d0212cee028fb44ce77edc70cf869677ab0e67a33f",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/benchmarks/simion_field_benchmark.py",
+      "sha256": "8af72be0908f10e919ca7a371c80d3b8df8afa5e7a8c9e4daaf52a5840182637",
+      "lines": 1194,
+      "max_function_lines": 195,
+      "max_class_lines": 26,
+      "original_sha256": "8af72be0908f10e919ca7a371c80d3b8df8afa5e7a8c9e4daaf52a5840182637",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/benchmarks/simion_trajectory_compare.py",
+      "sha256": "1d2221e28a9e7161c782961cdd5406d194f319888d7795653c4e3ddb8fab0124",
+      "lines": 769,
+      "max_function_lines": 182,
+      "max_class_lines": 12,
+      "original_sha256": "1d2221e28a9e7161c782961cdd5406d194f319888d7795653c4e3ddb8fab0124",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/boundary_masks/__init__.py",
+      "sha256": "b717518fb0034ecefccde84e79a8d1c7e476e3369b7e5af84582b91839c24e9e",
+      "lines": 21,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "b717518fb0034ecefccde84e79a8d1c7e476e3369b7e5af84582b91839c24e9e",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/boundary_masks/mask2d_io.py",
+      "sha256": "0e402cd7c35b0feff7850c48972b42f9df74fc2d527b7f5b600da8c937f691c5",
+      "lines": 239,
+      "max_function_lines": 36,
+      "max_class_lines": 0,
+      "original_sha256": "0e402cd7c35b0feff7850c48972b42f9df74fc2d527b7f5b600da8c937f691c5",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/boundary_masks/mask3d_io.py",
+      "sha256": "8fde0a1117af48e22b6cf6aae6799b928dd9c233816c5e0fe2c37545bc26efe6",
+      "lines": 137,
+      "max_function_lines": 29,
+      "max_class_lines": 0,
+      "original_sha256": "8fde0a1117af48e22b6cf6aae6799b928dd9c233816c5e0fe2c37545bc26efe6",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/boundary_masks/metadata.py",
+      "sha256": "112c0cd12a7955f7bb3ecc747230686ce2a73b7d4c761001ef66fee8b582f2a4",
+      "lines": 25,
+      "max_function_lines": 12,
+      "max_class_lines": 0,
+      "original_sha256": "112c0cd12a7955f7bb3ecc747230686ce2a73b7d4c761001ef66fee8b582f2a4",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/__init__.py",
+      "sha256": "7060381f3205c8948b10af5f30b7125c6d925602ba4d0d169904f0af7c259072",
+      "lines": 1,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "7060381f3205c8948b10af5f30b7125c6d925602ba4d0d169904f0af7c259072",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/analyze_collision_model_validation.py",
+      "sha256": "4a0723ea8a1de2809cca8f6132e1a9db874e9abf0bb37f2c231b8bd0d2005b64",
+      "lines": 416,
+      "max_function_lines": 87,
+      "max_class_lines": 0,
+      "original_sha256": "4a0723ea8a1de2809cca8f6132e1a9db874e9abf0bb37f2c231b8bd0d2005b64",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/analyze_current_sweep_multimetric_per_ms.py",
+      "sha256": "14bf510852e214da2a22c0ed2c41a36324be27416c8b22cdba47d8d683548dd1",
+      "lines": 280,
+      "max_function_lines": 110,
+      "max_class_lines": 0,
+      "original_sha256": "14bf510852e214da2a22c0ed2c41a36324be27416c8b22cdba47d8d683548dd1",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/analyze_current_sweep_validation.py",
+      "sha256": "ef53ce501c3516562007abe373fe91057735375cb6113532fbe28f6607b0a167",
+      "lines": 439,
+      "max_function_lines": 92,
+      "max_class_lines": 0,
+      "original_sha256": "ef53ce501c3516562007abe373fe91057735375cb6113532fbe28f6607b0a167",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/analyze_rf_sweep_multimetric_per_ms.py",
+      "sha256": "de57c0eaf780cdfef03c01281be611e50f8089f41837e482117f66e3ccce6ef8",
+      "lines": 554,
+      "max_function_lines": 123,
+      "max_class_lines": 0,
+      "original_sha256": "de57c0eaf780cdfef03c01281be611e50f8089f41837e482117f66e3ccce6ef8",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/analyze_rf_sweep_validation.py",
+      "sha256": "e8266b792c92934d810518996b59e6fd259191dcc58b09e541a2db27ec6bb4b6",
+      "lines": 420,
+      "max_function_lines": 74,
+      "max_class_lines": 0,
+      "original_sha256": "e8266b792c92934d810518996b59e6fd259191dcc58b09e541a2db27ec6bb4b6",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/analyze_snapshot_case.py",
+      "sha256": "f1282dd954ab37b5f8182f6ac09a8185443417dbb609da661eb08ffaaf8c6a47",
+      "lines": 300,
+      "max_function_lines": 90,
+      "max_class_lines": 0,
+      "original_sha256": "f1282dd954ab37b5f8182f6ac09a8185443417dbb609da661eb08ffaaf8c6a47",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/analyze_stable_terminal_summary.py",
+      "sha256": "883c47a059b34358d823dfc7265e877b0068926c7a68714821a01329c9588567",
+      "lines": 120,
+      "max_function_lines": 50,
+      "max_class_lines": 0,
+      "original_sha256": "883c47a059b34358d823dfc7265e877b0068926c7a68714821a01329c9588567",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/generate_sanity_report.py",
+      "sha256": "72b165a6e48ebd1f47ceafe08b6bee3c27ace3483b173e008369a85d0f6404bc",
+      "lines": 214,
+      "max_function_lines": 163,
+      "max_class_lines": 0,
+      "original_sha256": "72b165a6e48ebd1f47ceafe08b6bee3c27ace3483b173e008369a85d0f6404bc",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/pic_convergence.py",
+      "sha256": "2a2a452dd7bb4cbc7ecfb2c61fefb70f38ce6c444a45fd30af5ae725faeb71ea",
+      "lines": 488,
+      "max_function_lines": 91,
+      "max_class_lines": 16,
+      "original_sha256": "2a2a452dd7bb4cbc7ecfb2c61fefb70f38ce6c444a45fd30af5ae725faeb71ea",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_best_trajectory_comparison.py",
+      "sha256": "3a985609911630e691ab3f3fc1c220d56d0645622e5b696aaec0e59ae2d700af",
+      "lines": 369,
+      "max_function_lines": 89,
+      "max_class_lines": 41,
+      "original_sha256": "3a985609911630e691ab3f3fc1c220d56d0645622e5b696aaec0e59ae2d700af",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_continuous_source_diagnostics.py",
+      "sha256": "0a68a162d9460b69b679329e05a1ca5ec1d1a70f8e4a59a83864a5981bed8f24",
+      "lines": 264,
+      "max_function_lines": 48,
+      "max_class_lines": 0,
+      "original_sha256": "0a68a162d9460b69b679329e05a1ca5ec1d1a70f8e4a59a83864a5981bed8f24",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_field_flow_mask_alignment.py",
+      "sha256": "90c258e64f155f35789da4b74b342ecaf2961932ef785278726a5e7f75ecad9a",
+      "lines": 584,
+      "max_function_lines": 238,
+      "max_class_lines": 0,
+      "original_sha256": "90c258e64f155f35789da4b74b342ecaf2961932ef785278726a5e7f75ecad9a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_fig7_thermalization.py",
+      "sha256": "2f6aa117af9293034f62275f709262e501b50f6b8eee7a1c6955e61afef3a098",
+      "lines": 434,
+      "max_function_lines": 50,
+      "max_class_lines": 20,
+      "original_sha256": "2f6aa117af9293034f62275f709262e501b50f6b8eee7a1c6955e61afef3a098",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_fluent_thermodynamics.py",
+      "sha256": "cb4d94431c8222d12a59691b20215481f6ab167bdbf58c99bd72942f573b63d2",
+      "lines": 528,
+      "max_function_lines": 174,
+      "max_class_lines": 0,
+      "original_sha256": "cb4d94431c8222d12a59691b20215481f6ab167bdbf58c99bd72942f573b63d2",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_gaussian_source_diagnostics.py",
+      "sha256": "8047c41bf5cdccee1cd74baa0636b74818800fecb4126546c275e8babf1e093b",
+      "lines": 699,
+      "max_function_lines": 66,
+      "max_class_lines": 10,
+      "original_sha256": "8047c41bf5cdccee1cd74baa0636b74818800fecb4126546c275e8babf1e093b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_ion_loss_on_electrode_mask.py",
+      "sha256": "5eb5569b6f7f3b69c290dbf6e7494d764f5092ed10f9b6017518f1c5371f8d9f",
+      "lines": 1015,
+      "max_function_lines": 128,
+      "max_class_lines": 15,
+      "original_sha256": "5eb5569b6f7f3b69c290dbf6e7494d764f5092ed10f9b6017518f1c5371f8d9f",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_results.py",
+      "sha256": "1a57deeb7873e2a5ed8ee24f46f007243abd70fa3bbdb65055cbd35db25dd137",
+      "lines": 206,
+      "max_function_lines": 62,
+      "max_class_lines": 5,
+      "original_sha256": "1a57deeb7873e2a5ed8ee24f46f007243abd70fa3bbdb65055cbd35db25dd137",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_simulation_workflow.py",
+      "sha256": "d8b7c937df2c0175504ac4d7c8ae45bffbb815274ca207488660347c9951cc13",
+      "lines": 183,
+      "max_function_lines": 85,
+      "max_class_lines": 0,
+      "original_sha256": "d8b7c937df2c0175504ac4d7c8ae45bffbb815274ca207488660347c9951cc13",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_style.py",
+      "sha256": "d9b642819366a33758355329f7915193c897f0fe6eef37be2c5854f887cd1a1a",
+      "lines": 94,
+      "max_function_lines": 28,
+      "max_class_lines": 0,
+      "original_sha256": "d9b642819366a33758355329f7915193c897f0fe6eef37be2c5854f887cd1a1a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_vr_trajectory.py",
+      "sha256": "f523232ef27e16e4eaee9767e6f8def9d9b8bebe490d4c51cd3da0ea4988c372",
+      "lines": 12,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "f523232ef27e16e4eaee9767e6f8def9d9b8bebe490d4c51cd3da0ea4988c372",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/plot_vr_trajectory_overlay.py",
+      "sha256": "1a8f3bf46122ad72cebb0e8d64a957e0aeb1ce4c004bb82c81e904d575d57616",
+      "lines": 1045,
+      "max_function_lines": 116,
+      "max_class_lines": 14,
+      "original_sha256": "1a8f3bf46122ad72cebb0e8d64a957e0aeb1ce4c004bb82c81e904d575d57616",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/sanity_checks.py",
+      "sha256": "319bbee7d5bf92874ced5ea953b215b811b82af262f35b0707829d121d426af9",
+      "lines": 419,
+      "max_function_lines": 94,
+      "max_class_lines": 0,
+      "original_sha256": "319bbee7d5bf92874ced5ea953b215b811b82af262f35b0707829d121d426af9",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/summarize_trap_only_capacity.py",
+      "sha256": "1e05d31416aecadeb205e93146cab80e921599ffc519df10bf104811ede4b87f",
+      "lines": 223,
+      "max_function_lines": 65,
+      "max_class_lines": 0,
+      "original_sha256": "1e05d31416aecadeb205e93146cab80e921599ffc519df10bf104811ede4b87f",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/diagnostics/validate_langevin_thermalization.py",
+      "sha256": "1a417db92f3eea24ec79f56525c70e6bf676115efdad3f7f845a6d28edb21638",
+      "lines": 193,
+      "max_function_lines": 80,
+      "max_class_lines": 0,
+      "original_sha256": "1a417db92f3eea24ec79f56525c70e6bf676115efdad3f7f845a6d28edb21638",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/fields/__init__.py",
+      "sha256": "2f9eb965b747bf23b7585dd01ef7bc784765ec3cabb5db09cfdc06184c18888b",
+      "lines": 3,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "2f9eb965b747bf23b7585dd01ef7bc784765ec3cabb5db09cfdc06184c18888b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/fields/runtime_artifacts.py",
+      "sha256": "32d8f92ab0a7f88222d59685d0d0ebc0ce2c26626bbbc06879ca7fbd3e7388c3",
+      "lines": 446,
+      "max_function_lines": 41,
+      "max_class_lines": 9,
+      "original_sha256": "32d8f92ab0a7f88222d59685d0d0ebc0ce2c26626bbbc06879ca7fbd3e7388c3",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/logger.py",
+      "sha256": "e1f25023dbdb9d478f4338a4a39bdc07f803c4c8b6220c8fa0936cbed1315010",
+      "lines": 304,
+      "max_function_lines": 47,
+      "max_class_lines": 279,
+      "original_sha256": "e1f25023dbdb9d478f4338a4a39bdc07f803c4c8b6220c8fa0936cbed1315010",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/__init__.py",
+      "sha256": "ac803229de970f7be3d56317f7352729409d6d6c3ecfc01d7faea3603e683c8c",
+      "lines": 16,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "ac803229de970f7be3d56317f7352729409d6d6c3ecfc01d7faea3603e683c8c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/csv_tables.py",
+      "sha256": "a058c580dec1591fa0fc12796fe2f6d62a806149d9bfe200ebbcacb41c2f3597",
+      "lines": 93,
+      "max_function_lines": 22,
+      "max_class_lines": 0,
+      "original_sha256": "a058c580dec1591fa0fc12796fe2f6d62a806149d9bfe200ebbcacb41c2f3597",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/dto.py",
+      "sha256": "8484a99ff4af06ea252c8f2e3f3f71e0d8157d09353144d2e7ecf05b5acff6c7",
+      "lines": 216,
+      "max_function_lines": 41,
+      "max_class_lines": 0,
+      "original_sha256": "8484a99ff4af06ea252c8f2e3f3f71e0d8157d09353144d2e7ecf05b5acff6c7",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/final_particles.py",
+      "sha256": "1a228679af05af95ad1cf84ad5faa606536d35101f79a3d660210a8ca908c042",
+      "lines": 323,
+      "max_function_lines": 39,
+      "max_class_lines": 15,
+      "original_sha256": "1a228679af05af95ad1cf84ad5faa606536d35101f79a3d660210a8ca908c042",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/markdown.py",
+      "sha256": "892fff9fb8e260ab5b03e2e508f747bbcf7d61deb8d44bd39a6febf6e390ca62",
+      "lines": 500,
+      "max_function_lines": 34,
+      "max_class_lines": 0,
+      "original_sha256": "892fff9fb8e260ab5b03e2e508f747bbcf7d61deb8d44bd39a6febf6e390ca62",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/plots.py",
+      "sha256": "61f22ff1e8cdafcd57a8bb0e499275782b2575f6e32b20f14d639517d795f708",
+      "lines": 323,
+      "max_function_lines": 36,
+      "max_class_lines": 0,
+      "original_sha256": "61f22ff1e8cdafcd57a8bb0e499275782b2575f6e32b20f14d639517d795f708",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/runtime_summary.py",
+      "sha256": "223a883c95037ce87ade1c4cc4ee13687df876864f421590469b15b2188195ef",
+      "lines": 397,
+      "max_function_lines": 50,
+      "max_class_lines": 21,
+      "original_sha256": "223a883c95037ce87ade1c4cc4ee13687df876864f421590469b15b2188195ef",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/schema.py",
+      "sha256": "94f11c8c4430afce7958bb8ef70538345b3de87d59db76180427055d1c2fd0eb",
+      "lines": 39,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "94f11c8c4430afce7958bb8ef70538345b3de87d59db76180427055d1c2fd0eb",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/snapshot.py",
+      "sha256": "e044e9729394be3e3bdade541cda5f9d3f542c8cbe3786f4215364ca205e011f",
+      "lines": 302,
+      "max_function_lines": 47,
+      "max_class_lines": 24,
+      "original_sha256": "e044e9729394be3e3bdade541cda5f9d3f542c8cbe3786f4215364ca205e011f",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/summary_builder.py",
+      "sha256": "9f9ea4c9bb36837d5c42803aefb3973f26ecf9f3ed4704a33c80fb2d138eaa46",
+      "lines": 180,
+      "max_function_lines": 47,
+      "max_class_lines": 0,
+      "original_sha256": "9f9ea4c9bb36837d5c42803aefb3973f26ecf9f3ed4704a33c80fb2d138eaa46",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/terminal_summary.py",
+      "sha256": "9a7801996b3dd65c431c1408abf82caeaf1a971fb0669b8751206d2a4474abeb",
+      "lines": 177,
+      "max_function_lines": 46,
+      "max_class_lines": 0,
+      "original_sha256": "9a7801996b3dd65c431c1408abf82caeaf1a971fb0669b8751206d2a4474abeb",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/values.py",
+      "sha256": "28f66e7f4652100cddde6edc51929dd1d110860ae746b322cfa149978d3654e1",
+      "lines": 77,
+      "max_function_lines": 24,
+      "max_class_lines": 0,
+      "original_sha256": "28f66e7f4652100cddde6edc51929dd1d110860ae746b322cfa149978d3654e1",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/report/writer.py",
+      "sha256": "b7d1683bf54389515938b804a92ca203e432a00aba3ff3676b339473d71999ed",
+      "lines": 110,
+      "max_function_lines": 44,
+      "max_class_lines": 0,
+      "original_sha256": "b7d1683bf54389515938b804a92ca203e432a00aba3ff3676b339473d71999ed",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/snapshot_plots.py",
+      "sha256": "45a87557ff75294eab25e2a190727c8f46ca3f94bafc757151f9f4aadaceef7b",
+      "lines": 247,
+      "max_function_lines": 32,
+      "max_class_lines": 11,
+      "original_sha256": "45a87557ff75294eab25e2a190727c8f46ca3f94bafc757151f9f4aadaceef7b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/terminal_recorder.py",
+      "sha256": "f94cefc8b65dbc706b8c6799a575c7c9c0126a141d44ae3c717a52dcd72eb020",
+      "lines": 357,
+      "max_function_lines": 36,
+      "max_class_lines": 295,
+      "original_sha256": "f94cefc8b65dbc706b8c6799a575c7c9c0126a141d44ae3c717a52dcd72eb020",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/terminal_reservoir.py",
+      "sha256": "eaacfb06825767866d88f56fcd4d3e683818dd4162789b2d6b53d75a158eeeeb",
+      "lines": 58,
+      "max_function_lines": 19,
+      "max_class_lines": 48,
+      "original_sha256": "eaacfb06825767866d88f56fcd4d3e683818dd4162789b2d6b53d75a158eeeeb",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/terminal_rows.py",
+      "sha256": "ab75728b337998d6f1b7e5ed5c948b6c017647aca29c7300b35983a3a52f8a77",
+      "lines": 180,
+      "max_function_lines": 41,
+      "max_class_lines": 17,
+      "original_sha256": "ab75728b337998d6f1b7e5ed5c948b6c017647aca29c7300b35983a3a52f8a77",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/terminal_schema.py",
+      "sha256": "881e5a796cff996119535acc432c0fd67c6a59054e8051934aaae43fe0f08435",
+      "lines": 39,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "881e5a796cff996119535acc432c0fd67c6a59054e8051934aaae43fe0f08435",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/terminal_statistics.py",
+      "sha256": "7d932447f53057f4a76d7135be9f37be5dd132dd728a5d73b9a0567a4abf6eba",
+      "lines": 189,
+      "max_function_lines": 27,
+      "max_class_lines": 176,
+      "original_sha256": "7d932447f53057f4a76d7135be9f37be5dd132dd728a5d73b9a0567a4abf6eba",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/terminal_stream.py",
+      "sha256": "7b71d86ad7d414665850e1eb09e43c4f3eccc225b3ffa9ce2f004a5d8deee862",
+      "lines": 57,
+      "max_function_lines": 11,
+      "max_class_lines": 46,
+      "original_sha256": "7b71d86ad7d414665850e1eb09e43c4f3eccc225b3ffa9ce2f004a5d8deee862",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/tools/__init__.py",
+      "sha256": "b134ada6764f23a147fb7288cdbacf76476c847fd38cd11a400893b143004f8a",
+      "lines": 1,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "b134ada6764f23a147fb7288cdbacf76476c847fd38cd11a400893b143004f8a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/tools/electrode_mask_baker_3d.py",
+      "sha256": "fb1be2a2274f53b4425134a2989a61de01cb9730a0f213c031fd0c99a1fa0e2c",
+      "lines": 237,
+      "max_function_lines": 72,
+      "max_class_lines": 0,
+      "original_sha256": "fb1be2a2274f53b4425134a2989a61de01cb9730a0f213c031fd0c99a1fa0e2c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/tools/field_baker.py",
+      "sha256": "14d56515e229bd6b4b01110ffd883057ece542bc32cf5e16dcf87247c6c222e6",
+      "lines": 1427,
+      "max_function_lines": 238,
+      "max_class_lines": 711,
+      "original_sha256": "14d56515e229bd6b4b01110ffd883057ece542bc32cf5e16dcf87247c6c222e6",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/tools/field_baker_3d.py",
+      "sha256": "8e158508f80156e683983edbafa58d89c94dafa3eeb07e1248476d6a492686f4",
+      "lines": 468,
+      "max_function_lines": 82,
+      "max_class_lines": 10,
+      "original_sha256": "8e158508f80156e683983edbafa58d89c94dafa3eeb07e1248476d6a492686f4",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/tools/field_convergence.py",
+      "sha256": "f4e58b41a9822c8452a2016e38e270b753216bb3007d909bb4b81efd25e15048",
+      "lines": 798,
+      "max_function_lines": 171,
+      "max_class_lines": 8,
+      "original_sha256": "f4e58b41a9822c8452a2016e38e270b753216bb3007d909bb4b81efd25e15048",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/data/tools/ring_trap_pic_setup.py",
+      "sha256": "7d2e3c04924ac9ffbb56c0c3e863fc65a49b7ef84098212debe61bafd76b049a",
+      "lines": 350,
+      "max_function_lines": 74,
+      "max_class_lines": 9,
+      "original_sha256": "7d2e3c04924ac9ffbb56c0c3e863fc65a49b7ef84098212debe61bafd76b049a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/__init__.py",
+      "sha256": "ae842ce1493bbad2f1472e8ad43c3f23113cdae7b51c9784267e3635b6bdcc32",
+      "lines": 1,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "ae842ce1493bbad2f1472e8ad43c3f23113cdae7b51c9784267e3635b6bdcc32",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/__init__.py",
+      "sha256": "8d1b0ae3eac86a3365b2b7d07b231e369996e6db2c00a21dc9cbbba907811531",
+      "lines": 26,
+      "max_function_lines": 10,
+      "max_class_lines": 0,
+      "original_sha256": "8d1b0ae3eac86a3365b2b7d07b231e369996e6db2c00a21dc9cbbba907811531",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/accounting.py",
+      "sha256": "8d4454af5505e33d68f7078e9e0f4df19a1bb997417b6cf42a434ed1171f02ca",
+      "lines": 325,
+      "max_function_lines": 50,
+      "max_class_lines": 108,
+      "original_sha256": "8d4454af5505e33d68f7078e9e0f4df19a1bb997417b6cf42a434ed1171f02ca",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/composite.py",
+      "sha256": "e761358fb06b950447bf518057a02730eb7ca769209024000c7318e0b3b412de",
+      "lines": 16,
+      "max_function_lines": 0,
+      "max_class_lines": 6,
+      "original_sha256": "e761358fb06b950447bf518057a02730eb7ca769209024000c7318e0b3b412de",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/electrodes.py",
+      "sha256": "5487b50e26ccc16271f03fdb9a36c53359b7764901dd7fec999d8b7bd6137684",
+      "lines": 278,
+      "max_function_lines": 47,
+      "max_class_lines": 195,
+      "original_sha256": "5487b50e26ccc16271f03fdb9a36c53359b7764901dd7fec999d8b7bd6137684",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/events.py",
+      "sha256": "049a0e44e1817847b5e0df34cedf0d1cb57ffe0d4f95b14d24ce68c4928e616a",
+      "lines": 79,
+      "max_function_lines": 23,
+      "max_class_lines": 44,
+      "original_sha256": "049a0e44e1817847b5e0df34cedf0d1cb57ffe0d4f95b14d24ce68c4928e616a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/localization.py",
+      "sha256": "a20f07e7a4bad7ff162044fc40e45c223fa77e10a7560011b67d16eaafb2a6fa",
+      "lines": 354,
+      "max_function_lines": 48,
+      "max_class_lines": 51,
+      "original_sha256": "a20f07e7a4bad7ff162044fc40e45c223fa77e10a7560011b67d16eaafb2a6fa",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/mask2d.py",
+      "sha256": "435a4a95f4fbabb3d57eefb4c961f409f4be5306ef9c71fc3d0944e09af5153a",
+      "lines": 222,
+      "max_function_lines": 32,
+      "max_class_lines": 7,
+      "original_sha256": "435a4a95f4fbabb3d57eefb4c961f409f4be5306ef9c71fc3d0944e09af5153a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/mask3d.py",
+      "sha256": "c6e4b74af53c4e715412736c99860c373e13ff7aea9a90f94582db767d20ae68",
+      "lines": 273,
+      "max_function_lines": 38,
+      "max_class_lines": 10,
+      "original_sha256": "c6e4b74af53c4e715412736c99860c373e13ff7aea9a90f94582db767d20ae68",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/boundaries/runtime.py",
+      "sha256": "acc3bedec4346169059d860cf0fca07c4eece229bc3d61df3db9145b8fcdfc0c",
+      "lines": 314,
+      "max_function_lines": 39,
+      "max_class_lines": 264,
+      "original_sha256": "acc3bedec4346169059d860cf0fca07c4eece229bc3d61df3db9145b8fcdfc0c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/__init__.py",
+      "sha256": "03589e7926ff158da34326aaf10778aa4eef693ef832131082256d5652df7d2d",
+      "lines": 45,
+      "max_function_lines": 12,
+      "max_class_lines": 0,
+      "original_sha256": "03589e7926ff158da34326aaf10778aa4eef693ef832131082256d5652df7d2d",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/adapter.py",
+      "sha256": "d91772c8b411d0f786914e2853ff8953c52d9354cc9a08dad9fe44c980497d7b",
+      "lines": 47,
+      "max_function_lines": 19,
+      "max_class_lines": 28,
+      "original_sha256": "d91772c8b411d0f786914e2853ff8953c52d9354cc9a08dad9fe44c980497d7b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/backend.py",
+      "sha256": "50da7e30946921535c392f3885813dba5d8ade525476a4db8638432157f6b76a",
+      "lines": 137,
+      "max_function_lines": 34,
+      "max_class_lines": 74,
+      "original_sha256": "e0c6e32c471df326ab1fbb758f39d14ea55272fd646006872e92e45f77bb9c79",
+      "change": "modified"
+    },
+    {
+      "path": "src/env/collisions/batch.py",
+      "sha256": "f6fe5acac775af2aa637a89705b011125357782a0c2fa1c8394b536008055194",
+      "lines": 199,
+      "max_function_lines": 46,
+      "max_class_lines": 38,
+      "original_sha256": "f6fe5acac775af2aa637a89705b011125357782a0c2fa1c8394b536008055194",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/cache.py",
+      "sha256": "bd83e155146ab8000d91ea6a23a95b341c81e338913e3d52ff3d0c3dd8fd4eb5",
+      "lines": 55,
+      "max_function_lines": 23,
+      "max_class_lines": 40,
+      "original_sha256": "bd83e155146ab8000d91ea6a23a95b341c81e338913e3d52ff3d0c3dd8fd4eb5",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/constants.py",
+      "sha256": "b8465cba8caf29e2255a77a156bdd3d9fc01232193cd798e110bc7fa5fd774b1",
+      "lines": 13,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "b8465cba8caf29e2255a77a156bdd3d9fc01232193cd798e110bc7fa5fd774b1",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/explicit.py",
+      "sha256": "02a6f1f228b36a8e314dad7f3eeadea2c36ea3a42d9bc0a60175a82af75c32be",
+      "lines": 347,
+      "max_function_lines": 42,
+      "max_class_lines": 45,
+      "original_sha256": "02a6f1f228b36a8e314dad7f3eeadea2c36ea3a42d9bc0a60175a82af75c32be",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/factory.py",
+      "sha256": "2b604bbf89cf43b1f4a293e9850aeab10245b762e29eaf101d60f712c69c6573",
+      "lines": 38,
+      "max_function_lines": 24,
+      "max_class_lines": 0,
+      "original_sha256": "2b604bbf89cf43b1f4a293e9850aeab10245b762e29eaf101d60f712c69c6573",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/hybrid.py",
+      "sha256": "690f513d7e92eea90ab98ed3c3cb046aad59fdb86dfd83494cabafe974bc06a0",
+      "lines": 106,
+      "max_function_lines": 35,
+      "max_class_lines": 38,
+      "original_sha256": "690f513d7e92eea90ab98ed3c3cb046aad59fdb86dfd83494cabafe974bc06a0",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/iict_lite/__init__.py",
+      "sha256": "49204ed1f9831d633bc5778d410a5cae53d4c1123bd21d88d7144960a549efc5",
+      "lines": 63,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "49204ed1f9831d633bc5778d410a5cae53d4c1123bd21d88d7144960a549efc5",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/iict_lite/backend.py",
+      "sha256": "d856605f7ed5ecbfadff209b138ed8f8eb7728a07ec4398a97b643779b218ab0",
+      "lines": 276,
+      "max_function_lines": 50,
+      "max_class_lines": 225,
+      "original_sha256": "d856605f7ed5ecbfadff209b138ed8f8eb7728a07ec4398a97b643779b218ab0",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/iict_lite/fragmentation.py",
+      "sha256": "85e632adffae8519f9e14ff766a3da8890829e2f19f709ffafe77c1084675bd9",
+      "lines": 118,
+      "max_function_lines": 11,
+      "max_class_lines": 43,
+      "original_sha256": "85e632adffae8519f9e14ff766a3da8890829e2f19f709ffafe77c1084675bd9",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/iict_lite/heat_capacity.py",
+      "sha256": "c1c89633bd631335b64f9064ddf481a41f9730fb8720a73f0567d8456f9c5d95",
+      "lines": 257,
+      "max_function_lines": 29,
+      "max_class_lines": 64,
+      "original_sha256": "c1c89633bd631335b64f9064ddf481a41f9730fb8720a73f0567d8456f9c5d95",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/iict_lite/parameters.py",
+      "sha256": "ca2013c504282dabd5301063934faddc761da6a3b739635ca7aea0464a919cd9",
+      "lines": 498,
+      "max_function_lines": 36,
+      "max_class_lines": 10,
+      "original_sha256": "ca2013c504282dabd5301063934faddc761da6a3b739635ca7aea0464a919cd9",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/iict_lite/physics.py",
+      "sha256": "64bfbde4b2c0c1a4ab238dc713a91ba2324274862d9794a0fba7b06622bd8f32",
+      "lines": 420,
+      "max_function_lines": 47,
+      "max_class_lines": 11,
+      "original_sha256": "64bfbde4b2c0c1a4ab238dc713a91ba2324274862d9794a0fba7b06622bd8f32",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/iict_lite/pseudoatom.py",
+      "sha256": "e116c42eb1680d0e52e4c1905e2e6c72cf97429f4b707dd278edf4eb24f0c857",
+      "lines": 237,
+      "max_function_lines": 31,
+      "max_class_lines": 74,
+      "original_sha256": "e116c42eb1680d0e52e4c1905e2e6c72cf97429f4b707dd278edf4eb24f0c857",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/ionspa_compat.py",
+      "sha256": "e2e4cd6d28e1472137e9828278ac8d25e65b6e9425448bb40c8eb4ba102c03e8",
+      "lines": 127,
+      "max_function_lines": 18,
+      "max_class_lines": 109,
+      "original_sha256": "e2e4cd6d28e1472137e9828278ac8d25e65b6e9425448bb40c8eb4ba102c03e8",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/models.py",
+      "sha256": "a9b58f5b9ff6ed63b28901828d582260a9531f37b7e51f0d641c8a31f53d57f7",
+      "lines": 36,
+      "max_function_lines": 4,
+      "max_class_lines": 13,
+      "original_sha256": "a9b58f5b9ff6ed63b28901828d582260a9531f37b7e51f0d641c8a31f53d57f7",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/operator.py",
+      "sha256": "992a962664002d505dadb52f0ed08663c25eac07097919825596e73d68aefcfd",
+      "lines": 46,
+      "max_function_lines": 18,
+      "max_class_lines": 28,
+      "original_sha256": "992a962664002d505dadb52f0ed08663c25eac07097919825596e73d68aefcfd",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/probability.py",
+      "sha256": "f524a9cce460093b4df1fad9abb33e40142250df65529f2a56584fcd7d82e2ea",
+      "lines": 15,
+      "max_function_lines": 5,
+      "max_class_lines": 0,
+      "original_sha256": "f524a9cce460093b4df1fad9abb33e40142250df65529f2a56584fcd7d82e2ea",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/protocol.py",
+      "sha256": "ff373bdee69549d4daa3e21643d1ec43aa5a007b7ae3faebe5e7450895df575c",
+      "lines": 79,
+      "max_function_lines": 16,
+      "max_class_lines": 62,
+      "original_sha256": "ff373bdee69549d4daa3e21643d1ec43aa5a007b7ae3faebe5e7450895df575c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/runtime.py",
+      "sha256": "aaefe225a9e2d05d5046cc1dfd969546155321792e6fb1f87b1707fb0957d428",
+      "lines": 16,
+      "max_function_lines": 0,
+      "max_class_lines": 6,
+      "original_sha256": "aaefe225a9e2d05d5046cc1dfd969546155321792e6fb1f87b1707fb0957d428",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/runtime_common.py",
+      "sha256": "3c05ca75561df02a8116c4beb2bde7f73876b95407390a81de83d03fbba6fb1a",
+      "lines": 73,
+      "max_function_lines": 19,
+      "max_class_lines": 59,
+      "original_sha256": "3c05ca75561df02a8116c4beb2bde7f73876b95407390a81de83d03fbba6fb1a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/runtime_legacy.py",
+      "sha256": "c4c409ce9587cde2e1387a6151703dc112ad6d93306f6d075fdf2f085033bfb0",
+      "lines": 74,
+      "max_function_lines": 34,
+      "max_class_lines": 37,
+      "original_sha256": "c4c409ce9587cde2e1387a6151703dc112ad6d93306f6d075fdf2f085033bfb0",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/runtime_preselection.py",
+      "sha256": "8f653c75f6fcf3cd7e8555ae23963852c5ff1a7998269553c77d07a23a144419",
+      "lines": 214,
+      "max_function_lines": 33,
+      "max_class_lines": 35,
+      "original_sha256": "8f653c75f6fcf3cd7e8555ae23963852c5ff1a7998269553c77d07a23a144419",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/selection.py",
+      "sha256": "4d7f5fe3a1fa2b7eda7019a3be7dcd3a88b7e13af4c208ee217ed4f07f5096e6",
+      "lines": 131,
+      "max_function_lines": 41,
+      "max_class_lines": 0,
+      "original_sha256": "4d7f5fe3a1fa2b7eda7019a3be7dcd3a88b7e13af4c208ee217ed4f07f5096e6",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/single.py",
+      "sha256": "c0f0ed4e7e519e34bba0a248b94f197acfab8834dac799d02535b8ec1bb665a7",
+      "lines": 144,
+      "max_function_lines": 42,
+      "max_class_lines": 22,
+      "original_sha256": "c0f0ed4e7e519e34bba0a248b94f197acfab8834dac799d02535b8ec1bb665a7",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/thermo.py",
+      "sha256": "5120b5bb05414021f20c27761b5c34f0225504fbe9e14448c4bc4a4c44788b40",
+      "lines": 145,
+      "max_function_lines": 28,
+      "max_class_lines": 128,
+      "original_sha256": "5120b5bb05414021f20c27761b5c34f0225504fbe9e14448c4bc4a4c44788b40",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/collisions/update_helpers.py",
+      "sha256": "24f4db2233ce1527dfc991d316266ed58d12370e992c511832419eed75897d2f",
+      "lines": 66,
+      "max_function_lines": 27,
+      "max_class_lines": 8,
+      "original_sha256": "24f4db2233ce1527dfc991d316266ed58d12370e992c511832419eed75897d2f",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/fields/__init__.py",
+      "sha256": "27a797af0a99275306738d6450951e9de884bb303f9fbfc785c3e8470a6ea718",
+      "lines": 61,
+      "max_function_lines": 10,
+      "max_class_lines": 0,
+      "original_sha256": "27a797af0a99275306738d6450951e9de884bb303f9fbfc785c3e8470a6ea718",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/fields/axisymmetric_grid.py",
+      "sha256": "5db7d2fd310a992c744e668279d6f7b8b897681032e52b4ceead8d8cda6af91b",
+      "lines": 426,
+      "max_function_lines": 50,
+      "max_class_lines": 294,
+      "original_sha256": "5db7d2fd310a992c744e668279d6f7b8b897681032e52b4ceead8d8cda6af91b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/fields/cartesian3d.py",
+      "sha256": "376b011a1736720c9862631a413af93952ce1ae8f97053ab5dc7cf8e32d3e85c",
+      "lines": 279,
+      "max_function_lines": 40,
+      "max_class_lines": 100,
+      "original_sha256": "376b011a1736720c9862631a413af93952ce1ae8f97053ab5dc7cf8e32d3e85c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/fields/local_sampler.py",
+      "sha256": "07f28480c01373f5086b3ef7a47ae1039cc2819a6dc38abbaadbecf1c1c021b5",
+      "lines": 330,
+      "max_function_lines": 39,
+      "max_class_lines": 229,
+      "original_sha256": "07f28480c01373f5086b3ef7a47ae1039cc2819a6dc38abbaadbecf1c1c021b5",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/gas/__init__.py",
+      "sha256": "391da61a5b71cfb6a0240056175af87d3682b89912cb1b74ce2192a62ac7faf5",
+      "lines": 10,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "391da61a5b71cfb6a0240056175af87d3682b89912cb1b74ce2192a62ac7faf5",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/gas/layered.py",
+      "sha256": "7e4e1959dd1502a248b7b8b311527773f45a7bf44f83079dde7f85ba244829f0",
+      "lines": 261,
+      "max_function_lines": 45,
+      "max_class_lines": 218,
+      "original_sha256": "7e4e1959dd1502a248b7b8b311527773f45a7bf44f83079dde7f85ba244829f0",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/gas/velocity_sampler.py",
+      "sha256": "b746a2eeef8ab844e2efc2537b6c1c0c14121ec8915cf58accaeea41ab431426",
+      "lines": 264,
+      "max_function_lines": 43,
+      "max_class_lines": 130,
+      "original_sha256": "b746a2eeef8ab844e2efc2537b6c1c0c14121ec8915cf58accaeea41ab431426",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/__init__.py",
+      "sha256": "8563405771630b34ae2c00fd8531ad445efd6a0469330f11f022d2c5f0270fc4",
+      "lines": 30,
+      "max_function_lines": 10,
+      "max_class_lines": 0,
+      "original_sha256": "8563405771630b34ae2c00fd8531ad445efd6a0469330f11f022d2c5f0270fc4",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/operator.py",
+      "sha256": "b75fc3060c20ae1de290082763d00d8a347976bf0b784535ffac64fccb2156b6",
+      "lines": 180,
+      "max_function_lines": 49,
+      "max_class_lines": 158,
+      "original_sha256": "b75fc3060c20ae1de290082763d00d8a347976bf0b784535ffac64fccb2156b6",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/poisson/__init__.py",
+      "sha256": "ba5495e7237bc529cb31bf7762a9c04e32ff5d1d431c3f527973b4b9d93ca6e2",
+      "lines": 31,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "ba5495e7237bc529cb31bf7762a9c04e32ff5d1d431c3f527973b4b9d93ca6e2",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/poisson/amg.py",
+      "sha256": "293da402d47b55607ced8b31b58684fb0c0c787967beaaba69f386ed67ffc53a",
+      "lines": 291,
+      "max_function_lines": 43,
+      "max_class_lines": 275,
+      "original_sha256": "293da402d47b55607ced8b31b58684fb0c0c787967beaaba69f386ed67ffc53a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/poisson/base.py",
+      "sha256": "b5eed675cf172d725dbb1f63171e9f19133bb40d32d03eec9a7e94cc9c116f26",
+      "lines": 240,
+      "max_function_lines": 47,
+      "max_class_lines": 70,
+      "original_sha256": "b5eed675cf172d725dbb1f63171e9f19133bb40d32d03eec9a7e94cc9c116f26",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/poisson/factory.py",
+      "sha256": "d08fbdf857fc915fa5b9736e6dea6240cb17ce155dbcd02de35c3968858d41eb",
+      "lines": 56,
+      "max_function_lines": 48,
+      "max_class_lines": 0,
+      "original_sha256": "d08fbdf857fc915fa5b9736e6dea6240cb17ce155dbcd02de35c3968858d41eb",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/poisson/sor.py",
+      "sha256": "6923a7aec3ee9bceeb71ab1e3ae27afb20368bdaba7a0d4a77ab952be1866ca8",
+      "lines": 341,
+      "max_function_lines": 35,
+      "max_class_lines": 184,
+      "original_sha256": "6923a7aec3ee9bceeb71ab1e3ae27afb20368bdaba7a0d4a77ab952be1866ca8",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/poisson/sparse.py",
+      "sha256": "4b69c666db83e152c53e9d89e3770d6702c7269858ae303d9ea2247d5a69f3ce",
+      "lines": 470,
+      "max_function_lines": 45,
+      "max_class_lines": 207,
+      "original_sha256": "4b69c666db83e152c53e9d89e3770d6702c7269858ae303d9ea2247d5a69f3ce",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/pic/poisson/types.py",
+      "sha256": "52438e542e5b191b283936e9f0d90253e9baa010790fcd5168936ae50df743d4",
+      "lines": 28,
+      "max_function_lines": 0,
+      "max_class_lines": 15,
+      "original_sha256": "52438e542e5b191b283936e9f0d90253e9baa010790fcd5168936ae50df743d4",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/__init__.py",
+      "sha256": "a4737305263c3200545e89f69bf338135f5577dd7be3345f0cfbe27c81d17654",
+      "lines": 18,
+      "max_function_lines": 0,
+      "max_class_lines": 7,
+      "original_sha256": "a4737305263c3200545e89f69bf338135f5577dd7be3345f0cfbe27c81d17654",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/__init__.py",
+      "sha256": "fb350641c4b662f5e2938fd7e394e0936bea1a424122cf843cf7c2c4a8667d0d",
+      "lines": 10,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "fb350641c4b662f5e2938fd7e394e0936bea1a424122cf843cf7c2c4a8667d0d",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/artifacts.py",
+      "sha256": "f6b58806a38693acafa2f6f8d7318141dabf8df1cd0181cf57f87a7d3d05fe5e",
+      "lines": 64,
+      "max_function_lines": 39,
+      "max_class_lines": 10,
+      "original_sha256": "f6b58806a38693acafa2f6f8d7318141dabf8df1cd0181cf57f87a7d3d05fe5e",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/composition.py",
+      "sha256": "d7e22ebe58531d43cfcabf3a8b1093fb48a64404f3a4ab0a21e0894be85597d9",
+      "lines": 171,
+      "max_function_lines": 37,
+      "max_class_lines": 0,
+      "original_sha256": "d7e22ebe58531d43cfcabf3a8b1093fb48a64404f3a4ab0a21e0894be85597d9",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/control.py",
+      "sha256": "aed2f6ab48543509b98414eced56ddf9114869d3dfd2af935f4da5f047fd1047",
+      "lines": 76,
+      "max_function_lines": 48,
+      "max_class_lines": 0,
+      "original_sha256": "aed2f6ab48543509b98414eced56ddf9114869d3dfd2af935f4da5f047fd1047",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/grids.py",
+      "sha256": "4bad597b789bc22164bcf5489eed75043c15f0da4d5a53d962df5d665e262ab6",
+      "lines": 218,
+      "max_function_lines": 47,
+      "max_class_lines": 0,
+      "original_sha256": "4bad597b789bc22164bcf5489eed75043c15f0da4d5a53d962df5d665e262ab6",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/messages.py",
+      "sha256": "c17368bf3dfb51885a31a513be0320fda0d4332271ef6fe421c2f4dd6e394c6f",
+      "lines": 80,
+      "max_function_lines": 30,
+      "max_class_lines": 0,
+      "original_sha256": "c17368bf3dfb51885a31a513be0320fda0d4332271ef6fe421c2f4dd6e394c6f",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/rf.py",
+      "sha256": "46fff4762398d5a10b70f45558b476da3660b8635804d6d75b8cc001bcda066b",
+      "lines": 99,
+      "max_function_lines": 43,
+      "max_class_lines": 0,
+      "original_sha256": "46fff4762398d5a10b70f45558b476da3660b8635804d6d75b8cc001bcda066b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/services.py",
+      "sha256": "ac908afc67441f4b923f3c035ab9d4d15d7adf82772ef7850780b449e8e47fad",
+      "lines": 48,
+      "max_function_lines": 0,
+      "max_class_lines": 38,
+      "original_sha256": "ac908afc67441f4b923f3c035ab9d4d15d7adf82772ef7850780b449e8e47fad",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/bootstrap/source_birth.py",
+      "sha256": "e9520d104ddf1312eb964289b425aa9d8492f139b7bdb0ca33b6f5f46916b4df",
+      "lines": 127,
+      "max_function_lines": 38,
+      "max_class_lines": 6,
+      "original_sha256": "e9520d104ddf1312eb964289b425aa9d8492f139b7bdb0ca33b6f5f46916b4df",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/cloud_io.py",
+      "sha256": "1df09993cc66a0ac6798d879a8f35ce5d38a3894d5c8791a0d792e69aa37bd3e",
+      "lines": 139,
+      "max_function_lines": 30,
+      "max_class_lines": 129,
+      "original_sha256": "1df09993cc66a0ac6798d879a8f35ce5d38a3894d5c8791a0d792e69aa37bd3e",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/fields.py",
+      "sha256": "ecf152a5a5e2482c44cc3f8e8db7611c27bd2c838b84cb0839596adb7296212b",
+      "lines": 85,
+      "max_function_lines": 21,
+      "max_class_lines": 74,
+      "original_sha256": "ecf152a5a5e2482c44cc3f8e8db7611c27bd2c838b84cb0839596adb7296212b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/projection.py",
+      "sha256": "9b5f37a340f8672ba3a2e62032af82320970cec738c3f172c1924ae853c7d440",
+      "lines": 115,
+      "max_function_lines": 38,
+      "max_class_lines": 104,
+      "original_sha256": "9b5f37a340f8672ba3a2e62032af82320970cec738c3f172c1924ae853c7d440",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/runtime/stages.py",
+      "sha256": "d755009b4de5f336cf5011c48381cdac235ce2172ee542679a16494c1c21dc1c",
+      "lines": 74,
+      "max_function_lines": 19,
+      "max_class_lines": 67,
+      "original_sha256": "d755009b4de5f336cf5011c48381cdac235ce2172ee542679a16494c1c21dc1c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/sources/__init__.py",
+      "sha256": "71785c4dbb6f9d40d862e3ff908ced4c13a7842d35c0f22d0b708dbc024115e1",
+      "lines": 10,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "71785c4dbb6f9d40d862e3ff908ced4c13a7842d35c0f22d0b708dbc024115e1",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/sources/access.py",
+      "sha256": "96806b6a0a7ca1e4e5348475e38b3f123021917e3ede1c4374d3833989c3b7bb",
+      "lines": 97,
+      "max_function_lines": 22,
+      "max_class_lines": 87,
+      "original_sha256": "96806b6a0a7ca1e4e5348475e38b3f123021917e3ede1c4374d3833989c3b7bb",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/sources/continuous.py",
+      "sha256": "81ef98a73efb31fa81254bf239be94004a89ee564a07884b015c7d068e492255",
+      "lines": 327,
+      "max_function_lines": 41,
+      "max_class_lines": 228,
+      "original_sha256": "81ef98a73efb31fa81254bf239be94004a89ee564a07884b015c7d068e492255",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/sources/continuous_runtime.py",
+      "sha256": "bdea233c7f89b4d5a01612150a30c2dd29edd0dac7db6a1edd19604dfc8abffb",
+      "lines": 300,
+      "max_function_lines": 38,
+      "max_class_lines": 287,
+      "original_sha256": "bdea233c7f89b4d5a01612150a30c2dd29edd0dac7db6a1edd19604dfc8abffb",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/sources/packet_runtime.py",
+      "sha256": "d5d026c795c0672cb51ffe795a5ce00c3ee93bbf9b92c0c9cb92df61d579ccfa",
+      "lines": 151,
+      "max_function_lines": 29,
+      "max_class_lines": 135,
+      "original_sha256": "d5d026c795c0672cb51ffe795a5ce00c3ee93bbf9b92c0c9cb92df61d579ccfa",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/sources/runtime.py",
+      "sha256": "d205d8231a1945e08550b9c537cc3c599d968fe9e24c68e1f4bc955615f7fbb1",
+      "lines": 20,
+      "max_function_lines": 0,
+      "max_class_lines": 7,
+      "original_sha256": "d205d8231a1945e08550b9c537cc3c599d968fe9e24c68e1f4bc955615f7fbb1",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/sources/slot_runtime.py",
+      "sha256": "65c635fd47bbabf69283db73af6c5b3d7800a68c98945245c00fbb558722e851",
+      "lines": 211,
+      "max_function_lines": 41,
+      "max_class_lines": 193,
+      "original_sha256": "65c635fd47bbabf69283db73af6c5b3d7800a68c98945245c00fbb558722e851",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/__init__.py",
+      "sha256": "a39cbcedfbb508c4dd3af8a835240396f1dd44059dd850712d0ab2bb4e2c7c00",
+      "lines": 30,
+      "max_function_lines": 10,
+      "max_class_lines": 0,
+      "original_sha256": "a39cbcedfbb508c4dd3af8a835240396f1dd44059dd850712d0ab2bb4e2c7c00",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/adaptive_integrator.py",
+      "sha256": "0ab3c9d89d5233c4c9f72c51e2af15e031cf8748dcf5d6659d6f2d25e277d218",
+      "lines": 140,
+      "max_function_lines": 39,
+      "max_class_lines": 122,
+      "original_sha256": "0ab3c9d89d5233c4c9f72c51e2af15e031cf8748dcf5d6659d6f2d25e277d218",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/collision_rate.py",
+      "sha256": "a60c856972ca863a341292c3849514f39aa236f407044fe9d90d3a80655b4b44",
+      "lines": 56,
+      "max_function_lines": 27,
+      "max_class_lines": 0,
+      "original_sha256": "a60c856972ca863a341292c3849514f39aa236f407044fe9d90d3a80655b4b44",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/field_gather.py",
+      "sha256": "2ca75ec174614c8d2422f31cad5f152218b8a1c5b52f9284f37c620ea4b10868",
+      "lines": 185,
+      "max_function_lines": 32,
+      "max_class_lines": 180,
+      "original_sha256": "2ca75ec174614c8d2422f31cad5f152218b8a1c5b52f9284f37c620ea4b10868",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/initialization.py",
+      "sha256": "828723c66a239c3d79f6c5f5a3288f6172bf2a3b3eb820ce3747e125108999ed",
+      "lines": 188,
+      "max_function_lines": 32,
+      "max_class_lines": 0,
+      "original_sha256": "828723c66a239c3d79f6c5f5a3288f6172bf2a3b3eb820ce3747e125108999ed",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/pusher.py",
+      "sha256": "c5582ad3fd4e0d23fa15832d41ef7117a7057d4af8ae96835c9e9f5accd151c9",
+      "lines": 65,
+      "max_function_lines": 36,
+      "max_class_lines": 44,
+      "original_sha256": "c5582ad3fd4e0d23fa15832d41ef7117a7057d4af8ae96835c9e9f5accd151c9",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/rk4.py",
+      "sha256": "a703c702a2f6b628cec47ec968c7b478867d622180d6c3fec85b9850d1172cba",
+      "lines": 136,
+      "max_function_lines": 34,
+      "max_class_lines": 131,
+      "original_sha256": "a703c702a2f6b628cec47ec968c7b478867d622180d6c3fec85b9850d1172cba",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/terminal_classifier.py",
+      "sha256": "d3b7186257cbd606324e2a97a9bb71fee5b36844e9bbc5c5035b7682ee72b9b3",
+      "lines": 172,
+      "max_function_lines": 42,
+      "max_class_lines": 167,
+      "original_sha256": "d3b7186257cbd606324e2a97a9bb71fee5b36844e9bbc5c5035b7682ee72b9b3",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/env/transport/time_step.py",
+      "sha256": "94800e7abd35759abe4e4b197cb7250027b189a03cf28f0a387c8d67f73b61dc",
+      "lines": 363,
+      "max_function_lines": 44,
+      "max_class_lines": 182,
+      "original_sha256": "94800e7abd35759abe4e4b197cb7250027b189a03cf28f0a387c8d67f73b61dc",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/__init__.py",
+      "sha256": "4a3a9ad1dfcc6abdf2cf98c2adb67a401eedde146ae8af910198cba56a01cb0e",
+      "lines": 1,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "4a3a9ad1dfcc6abdf2cf98c2adb67a401eedde146ae8af910198cba56a01cb0e",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/__init__.py",
+      "sha256": "29850de8e44a9554b8d659df48d582062c76c7434d597891a88a1bdd0a45132f",
+      "lines": 6,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "29850de8e44a9554b8d659df48d582062c76c7434d597891a88a1bdd0a45132f",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/arguments/__init__.py",
+      "sha256": "56f9e4bb0f66f0a418813a7cd75dd1f78fb13a23119e0744f5a6a24021b25d7b",
+      "lines": 21,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "56f9e4bb0f66f0a418813a7cd75dd1f78fb13a23119e0744f5a6a24021b25d7b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/arguments/boundary.py",
+      "sha256": "cb9c1359b69b300ac329c83f71c5c5c7c02b82f2c9e5b64018aa3040ffd2526a",
+      "lines": 26,
+      "max_function_lines": 3,
+      "max_class_lines": 0,
+      "original_sha256": "cb9c1359b69b300ac329c83f71c5c5c7c02b82f2c9e5b64018aa3040ffd2526a",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/arguments/collision.py",
+      "sha256": "e81a0b30083ea47d5e291339a9bdadd085414a3566e4bc942992e23fc979e488",
+      "lines": 40,
+      "max_function_lines": 3,
+      "max_class_lines": 0,
+      "original_sha256": "e81a0b30083ea47d5e291339a9bdadd085414a3566e4bc942992e23fc979e488",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/arguments/field.py",
+      "sha256": "d830c9a6c820a73329203277efefa3eaa307c9b17788bec3cb9b9dc9269e71ae",
+      "lines": 37,
+      "max_function_lines": 3,
+      "max_class_lines": 0,
+      "original_sha256": "d830c9a6c820a73329203277efefa3eaa307c9b17788bec3cb9b9dc9269e71ae",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/arguments/ion.py",
+      "sha256": "1464b54f99d7ecd52e567057ce7a221b3eb5ca3f0d3217fac2d17bab29d90846",
+      "lines": 31,
+      "max_function_lines": 3,
+      "max_class_lines": 0,
+      "original_sha256": "1464b54f99d7ecd52e567057ce7a221b3eb5ca3f0d3217fac2d17bab29d90846",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/arguments/output.py",
+      "sha256": "e17e5cbd7dc4c234bf507df049c7c33be00f7cdb533adf3126a71062c029983b",
+      "lines": 26,
+      "max_function_lines": 3,
+      "max_class_lines": 0,
+      "original_sha256": "e17e5cbd7dc4c234bf507df049c7c33be00f7cdb533adf3126a71062c029983b",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/arguments/pic.py",
+      "sha256": "520658281a60e3382ed8b68d7e2465152741d6a41934d5dd6139983528333b61",
+      "lines": 31,
+      "max_function_lines": 3,
+      "max_class_lines": 0,
+      "original_sha256": "520658281a60e3382ed8b68d7e2465152741d6a41934d5dd6139983528333b61",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/arguments/runtime.py",
+      "sha256": "3c20da2679fbdb9b16809dadb8a04a234c2aee7acdf6d08cfcc2e7d1470bc337",
+      "lines": 32,
+      "max_function_lines": 3,
+      "max_class_lines": 0,
+      "original_sha256": "6fc236b03a37a07b7008bcd93cdebbb7520fccf8c1ae12e2338f61f494b91632",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/cli/arguments/source.py",
+      "sha256": "4bbbedc7bf9ad9268ba7363a0557dd7f8c765154f527701e866fbe7b3c86f762",
+      "lines": 44,
+      "max_function_lines": 3,
+      "max_class_lines": 0,
+      "original_sha256": "4bbbedc7bf9ad9268ba7363a0557dd7f8c765154f527701e866fbe7b3c86f762",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/config_adapter.py",
+      "sha256": "cbf8590c07239617a4928b886ef2ba8d4d00fd6b905e17a3a70cc5770beb1a5f",
+      "lines": 454,
+      "max_function_lines": 47,
+      "max_class_lines": 7,
+      "original_sha256": "8213a1774ba29a79fea8f828f319de5070777442b1d1633af733de84ceb9903b",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/cli/parser.py",
+      "sha256": "dd767b0492b8d853784ad7760f12df87be1e9db798a83b83e6778cf6703c8bbe",
+      "lines": 76,
+      "max_function_lines": 14,
+      "max_class_lines": 4,
+      "original_sha256": "dd767b0492b8d853784ad7760f12df87be1e9db798a83b83e6778cf6703c8bbe",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/cli/runner.py",
+      "sha256": "0d77d7965c5c9a13682be7cbc02da03aac34a4305ebf7fa5cb3e93b6160ce064",
+      "lines": 257,
+      "max_function_lines": 39,
+      "max_class_lines": 0,
+      "original_sha256": "0d77d7965c5c9a13682be7cbc02da03aac34a4305ebf7fa5cb3e93b6160ce064",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/__init__.py",
+      "sha256": "e555133a87cae19676764bba3c91c5912db8fb3180625317226403e8fff1403e",
+      "lines": 34,
+      "max_function_lines": 25,
+      "max_class_lines": 0,
+      "original_sha256": "f43cfb29da558541d7fb497a68ec666b2060e84a09f6e9a035e36f0b71533271",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/__main__.py",
+      "sha256": "97727171b775d3640a4d53ec574abd91514aa4f75bcf1dbfe54ab6a508a01cce",
+      "lines": 9,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "97727171b775d3640a4d53ec574abd91514aa4f75bcf1dbfe54ab6a508a01cce",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/beam_dialog.py",
+      "sha256": "1ee38a66bf50619f236434af4e8999f58fd96aced20ceb747456baf0eb41c8a2",
+      "lines": 476,
+      "max_function_lines": 34,
+      "max_class_lines": 292,
+      "original_sha256": "1ee38a66bf50619f236434af4e8999f58fd96aced20ceb747456baf0eb41c8a2",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/beam_tasks.py",
+      "sha256": "bbcb2c92cd5e79a6ad2eabad76c57389a84b1c536ef8075e72576c2c212d4240",
+      "lines": 314,
+      "max_function_lines": 49,
+      "max_class_lines": 0,
+      "original_sha256": "bbcb2c92cd5e79a6ad2eabad76c57389a84b1c536ef8075e72576c2c212d4240",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/cli_preview.py",
+      "sha256": "147e22ac0937d27280a1ab3670807419841b512e90635f262f92afb091cec254",
+      "lines": 344,
+      "max_function_lines": 43,
+      "max_class_lines": 9,
+      "original_sha256": "147e22ac0937d27280a1ab3670807419841b512e90635f262f92afb091cec254",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/config_adapter.py",
+      "sha256": "b727812828c7b8082240cfdeab66e74f59e8688674eb28f705beb7c34ba96780",
+      "lines": 449,
+      "max_function_lines": 50,
+      "max_class_lines": 0,
+      "original_sha256": "b727812828c7b8082240cfdeab66e74f59e8688674eb28f705beb7c34ba96780",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/config_io.py",
+      "sha256": "28cf342f73f442f78577b2c913bb697fe931f6325d6015cc616492369dd9e42b",
+      "lines": 432,
+      "max_function_lines": 42,
+      "max_class_lines": 0,
+      "original_sha256": "b4939b92eb5b99b9cce591dd3d2806262976511dcf7a19a461f4a8807fe92e8b",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/dialogs.py",
+      "sha256": "1bb34469ca42baa1dd2ed4602c870bff2f6b82c5bb010f19b0fd4388df6162cb",
+      "lines": 94,
+      "max_function_lines": 16,
+      "max_class_lines": 68,
+      "original_sha256": "1bb34469ca42baa1dd2ed4602c870bff2f6b82c5bb010f19b0fd4388df6162cb",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/field_baker_layout.py",
+      "sha256": "9994ff5ef680fc240e54e4baa89eff0d0e0f97b694b4a8d45da0d7593ac84854",
+      "lines": 198,
+      "max_function_lines": 25,
+      "max_class_lines": 0,
+      "original_sha256": "9994ff5ef680fc240e54e4baa89eff0d0e0f97b694b4a8d45da0d7593ac84854",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/field_baker_ui.py",
+      "sha256": "bbbf74af97e4220552003592f625882bafefad7e554aea164cd9011768d62f6d",
+      "lines": 305,
+      "max_function_lines": 49,
+      "max_class_lines": 276,
+      "original_sha256": "bbbf74af97e4220552003592f625882bafefad7e554aea164cd9011768d62f6d",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/field_dialog.py",
+      "sha256": "096e71011e0ae8fd588109dd7d8cab9031991d88c668c4390eea0947983f984c",
+      "lines": 428,
+      "max_function_lines": 37,
+      "max_class_lines": 295,
+      "original_sha256": "096e71011e0ae8fd588109dd7d8cab9031991d88c668c4390eea0947983f984c",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/field_tasks.py",
+      "sha256": "eb91451e998bb6234aa54366be23dc85d0b035ac2e740bb6ad6252008cdda568",
+      "lines": 220,
+      "max_function_lines": 43,
+      "max_class_lines": 0,
+      "original_sha256": "eb91451e998bb6234aa54366be23dc85d0b035ac2e740bb6ad6252008cdda568",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/help_content.py",
+      "sha256": "9befacd1b2ef588458572cd55fa7911891df36bd2c0aaf2b619e4e0f67d64e7b",
+      "lines": 250,
+      "max_function_lines": 10,
+      "max_class_lines": 0,
+      "original_sha256": "97b6e4dbec53701f164b043af5a85dac6fc7689eac88cce9bf9540781d0f7138",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/iict_config_validation.py",
+      "sha256": "5439552e2bb2c9de23101b38f23ba329fa11929370e7689921b8b03a611d7ae3",
+      "lines": 123,
+      "max_function_lines": 38,
+      "max_class_lines": 0,
+      "original_sha256": "5439552e2bb2c9de23101b38f23ba329fa11929370e7689921b8b03a611d7ae3",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/iict_dialog.py",
+      "sha256": "b7bddb0501e5d0db4ec253f4eed089fcbf2c3910ab846f70c065f4cb1bb16e66",
+      "lines": 328,
+      "max_function_lines": 42,
+      "max_class_lines": 294,
+      "original_sha256": "b7bddb0501e5d0db4ec253f4eed089fcbf2c3910ab846f70c065f4cb1bb16e66",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/main_window.py",
+      "sha256": "34f352a2f5554dc7ee4b897080765dc30460876ec21a288e33500b893136fbf4",
+      "lines": 107,
+      "max_function_lines": 32,
+      "max_class_lines": 50,
+      "original_sha256": "9a196fae59e76fbd2adfaa6fe0af712c35b6b6386bba0c1522ee56e06baba3b6",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/models.py",
+      "sha256": "007f3024f306ba4a7fe3fef0e031fa0e2f37b3bf04421014cf666399f52898cd",
+      "lines": 213,
+      "max_function_lines": 2,
+      "max_class_lines": 65,
+      "original_sha256": "73cea568646e0021fd2826d73ddd7555fba0eb6885a5ceb37fef63dbb852e596",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/plotting.py",
+      "sha256": "da59773e4083e0bc89a9667d5ceab5db65689a242e4d33bd9ffe2587838e8236",
+      "lines": 261,
+      "max_function_lines": 48,
+      "max_class_lines": 0,
+      "original_sha256": "da59773e4083e0bc89a9667d5ceab5db65689a242e4d33bd9ffe2587838e8236",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/release_migration.py",
+      "sha256": "9bf485ae7cd6b1d09cde9133fd212a62ff0acaa53baf3e0eefe5aa4b3d614dde",
+      "lines": 34,
+      "max_function_lines": 28,
+      "max_class_lines": 0,
+      "original_sha256": null,
+      "change": "added"
+    },
+    {
+      "path": "src/render/gui/runtime_dialogs.py",
+      "sha256": "fa4a5811c096e0daaee2406c45cae279b1a12b75e729c3e080c7f0599f679b28",
+      "lines": 413,
+      "max_function_lines": 36,
+      "max_class_lines": 175,
+      "original_sha256": "8104b1228b3e2ad48f32951722df2fa86811d4345a0d421411b975f7f5a807d0",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/simulation_tasks.py",
+      "sha256": "8b722430da9bdbfc5c5c7a0883746a2bf843443e79f9c2729c32c66de7142db9",
+      "lines": 362,
+      "max_function_lines": 49,
+      "max_class_lines": 0,
+      "original_sha256": "160d08f804934edddccc95925b445cded69399444188ce6e6cafe1e7bf2f20f3",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/terminal_view.py",
+      "sha256": "629b6085576a5fa39d009ee139bd0146bf3330a7016340b860a13d004f6788b1",
+      "lines": 279,
+      "max_function_lines": 43,
+      "max_class_lines": 0,
+      "original_sha256": "629b6085576a5fa39d009ee139bd0146bf3330a7016340b860a13d004f6788b1",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/web_config_binding.py",
+      "sha256": "2049936de07658025e94a92c6215cf873593e3d5fa35c3ed1cd0bdc8df7e6bf2",
+      "lines": 201,
+      "max_function_lines": 33,
+      "max_class_lines": 0,
+      "original_sha256": "2049936de07658025e94a92c6215cf873593e3d5fa35c3ed1cd0bdc8df7e6bf2",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/web_handler.py",
+      "sha256": "c89953259711ea9dc4a9666ca6eef62f6bb9b7ceec0663bb5f1a16f06be90ef2",
+      "lines": 187,
+      "max_function_lines": 44,
+      "max_class_lines": 159,
+      "original_sha256": "c89953259711ea9dc4a9666ca6eef62f6bb9b7ceec0663bb5f1a16f06be90ef2",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/web_iict_controls.py",
+      "sha256": "65a4789d5b62b8afa9054dad1993128dfc377ced8dfb12124b4aa7d84e7c5bb7",
+      "lines": 99,
+      "max_function_lines": 13,
+      "max_class_lines": 0,
+      "original_sha256": "1c72d68a38dceaf899ecdb727586a1bab15a3855ac6877ab0e744f9a02ff150c",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/web_messages.py",
+      "sha256": "1ad34810fad2fd6d0087dd59bfb2b343a12c82918a0d57ebb22941617a0e2660",
+      "lines": 273,
+      "max_function_lines": 41,
+      "max_class_lines": 0,
+      "original_sha256": "1ad34810fad2fd6d0087dd59bfb2b343a12c82918a0d57ebb22941617a0e2660",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/web_state.py",
+      "sha256": "476e69eb82d0ca19aa34a0efd0096ee0331507bd6bbd0f7fb4ea6cc3323c1e44",
+      "lines": 196,
+      "max_function_lines": 25,
+      "max_class_lines": 161,
+      "original_sha256": "476e69eb82d0ca19aa34a0efd0096ee0331507bd6bbd0f7fb4ea6cc3323c1e44",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/web_window.py",
+      "sha256": "70d574209e39c67e928abea232dd3428544eba4b585b43f9704f3843ab8fdb57",
+      "lines": 488,
+      "max_function_lines": 25,
+      "max_class_lines": 2,
+      "original_sha256": "9245566107869f4f92518e0b6d02589ce1b14e0a17b4155bbe7ca9182b3df0bb",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/window_actions.py",
+      "sha256": "e1bb41a1080cfaa54f684c47a71983fca24fd9fe65209b292399145f2388cad1",
+      "lines": 405,
+      "max_function_lines": 40,
+      "max_class_lines": 245,
+      "original_sha256": "cf8e074f1f6adb2ed3ef45cfabcabf8617578c82bd488479565056ad5f86a36f",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/window_help.py",
+      "sha256": "a5b430cb2e1d1134b54d4e3f3559984b9c3bb7fde7deb5a5ea0772fe8fbe0c10",
+      "lines": 68,
+      "max_function_lines": 33,
+      "max_class_lines": 51,
+      "original_sha256": "83d1522ce443dd40f6cd849a664949cde41f2bba774453dd833c204b74ea3498",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/window_layout.py",
+      "sha256": "66a74c3bed46a5055e9129d9459706c782a3ef06527962e93162cb9b51bcd39f",
+      "lines": 357,
+      "max_function_lines": 30,
+      "max_class_lines": 299,
+      "original_sha256": "ec9c14399f4f160e402626ebf533b26bc6a2dbf78f82bbe0f7d830d5400a733c",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/window_results.py",
+      "sha256": "17c77fa97ef4e73ef604c2934e2c527847c73c3a39651112d66431ce6a977843",
+      "lines": 416,
+      "max_function_lines": 44,
+      "max_class_lines": 206,
+      "original_sha256": "17c77fa97ef4e73ef604c2934e2c527847c73c3a39651112d66431ce6a977843",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/window_runtime_layout.py",
+      "sha256": "6184d73ab1c534131fd989508730a126590a7d877bd3a66661039b0e47545c87",
+      "lines": 183,
+      "max_function_lines": 35,
+      "max_class_lines": 174,
+      "original_sha256": "6184d73ab1c534131fd989508730a126590a7d877bd3a66661039b0e47545c87",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/window_state.py",
+      "sha256": "da6a7c4f7c5bbd554ae7534bd0d120ada5e158ac210f37d638f79a2da7dda089",
+      "lines": 249,
+      "max_function_lines": 35,
+      "max_class_lines": 234,
+      "original_sha256": "da6a7c4f7c5bbd554ae7534bd0d120ada5e158ac210f37d638f79a2da7dda089",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/window_terminal_layout.py",
+      "sha256": "7d81f281e3002ba587edcffc29717e4ea720dcce9323bac89d849792bfd8d902",
+      "lines": 52,
+      "max_function_lines": 22,
+      "max_class_lines": 23,
+      "original_sha256": "7d81f281e3002ba587edcffc29717e4ea720dcce9323bac89d849792bfd8d902",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/window_terminal_results.py",
+      "sha256": "21ff75556860e3bbe075e27a7a58e2f2bfa37597509b582ecad6d1cdb2ff09dd",
+      "lines": 136,
+      "max_function_lines": 24,
+      "max_class_lines": 118,
+      "original_sha256": "21ff75556860e3bbe075e27a7a58e2f2bfa37597509b582ecad6d1cdb2ff09dd",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/window_variables.py",
+      "sha256": "f1839ed40eae06875ff23eccd414c232d4e63d69660e1aeca48fa769336bd4d7",
+      "lines": 65,
+      "max_function_lines": 22,
+      "max_class_lines": 58,
+      "original_sha256": "f1839ed40eae06875ff23eccd414c232d4e63d69660e1aeca48fa769336bd4d7",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/gui/worker_lifecycle.py",
+      "sha256": "07fcc195ce7bbf69270f7c4f0d61c29bef1f4b517343f1d86d4dda1b3f4f2277",
+      "lines": 62,
+      "max_function_lines": 31,
+      "max_class_lines": 4,
+      "original_sha256": "7c535da724465abd49076575a9032e74ab3954c5a5862766729ba78f770779f6",
+      "change": "modified"
+    },
+    {
+      "path": "src/render/gui/workers.py",
+      "sha256": "c3b20fab1dd1c8cfde8ed7b640d7fb455dc813f13f994a80a2bc2fbf0bf14b69",
+      "lines": 52,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "c3b20fab1dd1c8cfde8ed7b640d7fb455dc813f13f994a80a2bc2fbf0bf14b69",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/render/runtime_window.py",
+      "sha256": "2cfaee2f4fdef3b65063ff79e8d0b9d76ad6822441b06fe51feb616ac6f35a77",
+      "lines": 210,
+      "max_function_lines": 28,
+      "max_class_lines": 190,
+      "original_sha256": "2cfaee2f4fdef3b65063ff79e8d0b9d76ad6822441b06fe51feb616ac6f35a77",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/utils/__init__.py",
+      "sha256": "6a208adfd7d7649cc8a6c3739ff81cadfdfe54aa1cdd788737b5206218505b73",
+      "lines": 15,
+      "max_function_lines": 0,
+      "max_class_lines": 0,
+      "original_sha256": "6a208adfd7d7649cc8a6c3739ff81cadfdfe54aa1cdd788737b5206218505b73",
+      "change": "unchanged"
+    },
+    {
+      "path": "src/utils/geometry.py",
+      "sha256": "db8182dbeec69cc8b7c2efb7cb2dd40fd5cbe6764bdef261b0fe5715af3372d1",
+      "lines": 143,
+      "max_function_lines": 36,
+      "max_class_lines": 0,
+      "original_sha256": "db8182dbeec69cc8b7c2efb7cb2dd40fd5cbe6764bdef261b0fe5715af3372d1",
+      "change": "unchanged"
+    }
+  ],
+  "exact_duplicate_groups": []
+}
