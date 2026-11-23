@@ -34,6 +34,7 @@ class _FinalArrays:
     speed_m_per_s: np.ndarray
     kinetic_energy_ev: np.ndarray
     particle_indices: np.ndarray
+    dissociation_hazard: np.ndarray
 
 
 def _state_arrays(
@@ -178,6 +179,8 @@ def _final_arrays(
         speed_m_per_s,
         kinetic_energy_ev,
         _reported_particle_indices(simulation, count),
+        np.asarray(getattr(simulation, "_particle_dissociation_hazard",
+                           np.zeros(count)), dtype=np.float64),
     )
 
 
@@ -249,6 +252,7 @@ def _particle_row(
         ),
         "electrode_id": int(arrays.electrode_ids[particle_index]),
         "surface_distance_m": float(arrays.surface_distance_m[particle_index]),
+        "dissociation_hazard": float(arrays.dissociation_hazard[particle_index]),
     }
 
 

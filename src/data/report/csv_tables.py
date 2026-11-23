@@ -35,6 +35,7 @@ FINAL_PARTICLE_FIELDNAMES = (
     "final_internal_temperature_k",
     "electrode_id",
     "surface_distance_m",
+    "dissociation_hazard",
 )
 
 

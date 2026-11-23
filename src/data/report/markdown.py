@@ -203,7 +203,7 @@ def _solver_configuration_lines(config: dict[str, Any]) -> list[str]:
         f"- fragmentation mode: `{config['fragmentation_mode']}`",
         f"- Langevin z window: `{_format_float(config['langevin_z_start_m'] * 1.0e3)}..{_format_float(config['langevin_z_end_m'] * 1.0e3)} mm`",
         f"- Langevin switch probability: `{_format_float(config['langevin_switch_probability'])}`",
-        f"- Langevin max dt: `{_format_float(config['langevin_max_dt_s'])} s`",
+        f"- Langevin max dt: `{_format_float(config['langevin_max_dt_s'])} s`; joint controls (minimum count, maximum relaxation, relative energy): `{config['langevin_min_collisions']}, {config['langevin_max_relaxation']}, {config['langevin_max_energy_fraction']}`",
     ]
 
 
@@ -434,7 +434,7 @@ def _timing_performance_lines(summary: dict[str, Any]) -> list[str]:
         f"- time_collision_loop: `{_format_float(timing.get('time_collision_loop', float('nan')))} s`",
         f"- time_upload_state: `{_format_float(timing.get('time_upload_state', float('nan')))} s`",
         f"- time_rk4_push: `{_format_float(timing.get('time_rk4_push', float('nan')))} s`",
-        f"- time_terminal_events: `{_format_float(timing.get('time_terminal_events', float('nan')))} s`",
+        f"- time_terminal_events: `{_format_float(timing.get('time_terminal_events', float('nan')))} s`\n- time_dissociation: `{_format_float(timing.get('time_dissociation', float('nan')))} s`",
         f"- time_source_injection: `{_format_float(timing.get('time_source_injection', float('nan')))} s`",
         f"- time_unaccounted: `{_format_float(timing.get('time_unaccounted', float('nan')))} s`",
     ]

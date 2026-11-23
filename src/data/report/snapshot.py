@@ -285,7 +285,10 @@ def capture_report_snapshot(
         ),
         field_metadata=_freeze(simulation.baked_field_metadata),
         rf_runtime=_capture_rf_runtime(simulation),
-        ionspa=_freeze(_ionspa_runtime_info(simulation.adapter)),
+        ionspa=_freeze({
+            **_ionspa_runtime_info(simulation.adapter),
+            **getattr(simulation, "dissociation_runtime_info", {}),
+        }),
         electrode_mask=_freeze(simulation.electrode_mask_metadata),
         electrode_mask_3d=_freeze(simulation.electrode_mask_3d_metadata),
         grid_runtime=_freeze(_capture_grid_runtime(simulation)),
