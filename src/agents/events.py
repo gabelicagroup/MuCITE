@@ -45,6 +45,7 @@ class TerminalEventBatch:
     surface_distance_m: np.ndarray
     parent_real_ions_remaining: np.ndarray | None = None
     fragmented_real_ions_represented: np.ndarray | None = None
+    dissociation_hazard: np.ndarray | None = None
 
 
 @dataclass

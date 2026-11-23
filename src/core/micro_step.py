@@ -11,7 +11,8 @@ from scipy.constants import Boltzmann
 from ..config import DT_LIMITER_NAMES
 from .timestep import (
     InvalidTimeStepError,
-    select_active_timestep,
+    SelectedTimeStep,
+    select_indexed_timestep,
 )
 from .ports import ProgressObserver, SimulationRuntime
 from .run_state import RunState
@@ -107,8 +108,10 @@ def _numerical_failure(
     error: InvalidTimeStepError,
     limiter_codes: np.ndarray,
     raw_limiter_codes: np.ndarray,
+    active_indices: np.ndarray,
 ) -> dict[str, object]:
     failed_indices = np.asarray(error.particle_indices, dtype=np.int32)
+    offsets = np.searchsorted(active_indices, failed_indices)
     positions, velocities = runtime._download_selected_motion_state(failed_indices)
     failure: dict[str, object] = {
         "error": str(error),
@@ -116,8 +119,8 @@ def _numerical_failure(
         "dt_candidates_s": np.asarray(error.candidates_s, dtype=np.float64).tolist(),
         "positions_m": positions.tolist(),
         "velocities_m_per_s": velocities.tolist(),
-        "dt_limiter_codes": limiter_codes[failed_indices].tolist(),
-        "dt_raw_limiter_codes": raw_limiter_codes[failed_indices].tolist(),
+        "dt_limiter_codes": limiter_codes[offsets].tolist(),
+        "dt_raw_limiter_codes": raw_limiter_codes[offsets].tolist(),
     }
     try:
         samples = runtime._sample_local_state_batch(positions, run.clock.time_s)
@@ -131,6 +134,20 @@ def _numerical_failure(
     return failure
 
 
+def _download_active_timestep(
+    runtime: SimulationRuntime, run: RunState,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Transfer active rows; retain one slot-indexed rate buffer per run."""
+    indices = runtime._active_indices(run.particle_state)
+    candidates, limiters, raw_limiters, rates = (
+        runtime.particle_pusher.download_dt_diagnostics(runtime.cloud, indices)
+    )
+    if run.collision_rates_hz is None:
+        run.collision_rates_hz = np.zeros(runtime.cloud.n_particles, dtype=np.float64)
+    run.collision_rates_hz[indices] = rates
+    return indices, candidates, limiters, raw_limiters, run.collision_rates_hz
+
+
 def _prepare_timestep(
     runtime: SimulationRuntime,
     run: RunState,
@@ -138,14 +155,19 @@ def _prepare_timestep(
 ) -> PreparedTimeStep | None:
     _prepare_candidate_fields(runtime, run, macro_end_s)
     started_at = run.performance.start()
-    candidates, limiter_codes, raw_limiter_codes, cached_rates = (
-        runtime.particle_pusher.download_dt_diagnostics(runtime.cloud)
+    indices, candidates, limiter_codes, raw_limiter_codes, cached_rates = (
+        _download_active_timestep(runtime, run)
     )
     try:
-        selected = select_active_timestep(
-            candidates,
-            run.particle_state["active"],
+        selected = select_indexed_timestep(candidates, indices)
+        coordinated = _coordinate_collision_step(
+            runtime, run, selected.dt_s, cached_rates, indices,
         )
+        if coordinated is not None:
+            selected = coordinated
+            offset = np.searchsorted(indices, selected.particle_index)
+            limiter_codes[offset] = raw_limiter_codes[offset] = 2
+        _validate_collision_step(runtime, run, selected.dt_s, cached_rates, indices)
     except InvalidTimeStepError as error:
         run.termination.numerical_failure = _numerical_failure(
             runtime,
@@ -153,11 +175,12 @@ def _prepare_timestep(
             error,
             limiter_codes,
             raw_limiter_codes,
+            indices,
         )
         run.termination.finish("numerical_failure")
         run.performance.finish("time_dt_estimate", started_at)
         return None
-    particle_index = int(selected.particle_index)
+    particle_index = int(np.searchsorted(indices, selected.particle_index))
     dt_s = float(selected.dt_s)
     limiter = DT_LIMITER_NAMES.get(int(limiter_codes[particle_index]), "macro_end")
     raw_limiter = DT_LIMITER_NAMES.get(
@@ -170,6 +193,70 @@ def _prepare_timestep(
         dt_s=dt_s,
         cached_collision_rates_hz=np.asarray(cached_rates, dtype=np.float64),
     )
+
+
+def _explicit_bound_violations(
+    runtime: SimulationRuntime, run: RunState, dt_s: float, rates_hz: np.ndarray,
+    active_indices: np.ndarray | None = None,
+) -> np.ndarray:
+    if active_indices is None:
+        active_indices = np.flatnonzero(run.particle_state["active"] != 0)
+    lambda_dt = rates_hz[active_indices] * dt_s
+    offsets = np.flatnonzero(
+        lambda_dt > runtime.integrator.collision_safety_factor * (1 + 1e-12)
+    )
+    suspect = active_indices[offsets].astype(np.int32, copy=False)
+    if suspect.size and runtime.collision_model_code == 1:
+        if hasattr(runtime, "_enable_motion_cache"):
+            runtime._enable_motion_cache()
+        positions, _ = runtime._download_selected_motion_state(suspect)
+        hybrid = (
+            (positions[:, 2] >= runtime.config.langevin_z_start_m)
+            & (positions[:, 2] <= runtime.config.langevin_z_end_m)
+            & (lambda_dt[offsets] >= runtime.config.langevin_switch_probability)
+            & ((runtime.config.langevin_max_dt_s <= 0)
+               | (dt_s <= runtime.config.langevin_max_dt_s))
+        )
+        suspect = suspect[~hybrid]
+    return suspect
+
+
+def _coordinate_collision_step(
+    runtime: SimulationRuntime, run: RunState, dt_s: float, rates_hz: np.ndarray,
+    active_indices: np.ndarray | None = None,
+) -> SelectedTimeStep | None:
+    """Reduce the global step until hybrid gates and explicit bounds agree."""
+    reduced = None
+    if active_indices is None:
+        active_indices = np.flatnonzero(run.particle_state["active"] != 0)
+    for _ in range(active_indices.size + 1):
+        suspect = _explicit_bound_violations(runtime, run, dt_s, rates_hz, active_indices)
+        if suspect.size == 0:
+            return reduced
+        index = int(suspect[np.argmax(rates_hz[suspect])])
+        bound = runtime.integrator.collision_safety_factor / rates_hz[index]
+        if bound < runtime.integrator.min_dt_s:
+            _validate_collision_step(runtime, run, dt_s, rates_hz, active_indices)
+        if not np.isfinite(bound) or bound <= 0 or bound >= dt_s:
+            raise InvalidTimeStepError(suspect, np.full(suspect.size, dt_s),
+                                       reason="Cannot coordinate collision timestep")
+        dt_s = float(bound)
+        reduced = SelectedTimeStep(dt_s, index)
+    raise InvalidTimeStepError(suspect, np.full(suspect.size, dt_s),
+                               reason="Collision timestep coordination did not settle")
+
+
+def _validate_collision_step(
+    runtime: SimulationRuntime, run: RunState, dt_s: float, rates_hz: np.ndarray,
+    active_indices: np.ndarray | None = None,
+) -> None:
+    """Reject a step only after global branch/step coordination has finished."""
+    suspect = _explicit_bound_violations(runtime, run, dt_s, rates_hz, active_indices)
+    if suspect.size:
+        raise InvalidTimeStepError(
+            suspect, np.full(suspect.size, dt_s),
+            reason="Minimum timestep violates explicit collision-rate constraint",
+        )
 
 
 def _apply_collision_and_push(
@@ -204,6 +291,7 @@ def _apply_collision_and_push(
         float(runtime.config.rf_phase_rad),
         float(runtime.rf_peak_to_reference_scale),
     )
+    runtime._invalidate_motion_cache(after_push=True)
     run.performance.finish("time_rk4_push", started_at)
 
 
@@ -216,12 +304,22 @@ def _apply_terminal_and_source(
     new_time_s = old_time_s + dt_s
     run.clock.micro_step_index += 1
     started_at = run.performance.start()
-    runtime._taichi_runtime_apply_terminal_boundary_events(
+    events = runtime._collect_terminal_boundary_events(
         run.particle_state,
         new_time_s,
         step_start_time_s=old_time_s,
         step_dt_s=dt_s,
     )
+    run.performance.finish("time_terminal_events", started_at)
+    started_at = run.performance.start()
+    events = runtime._advance_dissociation(
+        run.particle_state, step_start_time_s=old_time_s,
+        step_dt_s=dt_s, events=events,
+    )
+    run.performance.finish("time_dissociation", started_at)
+    started_at = run.performance.start()
+    if events.count:
+        runtime._commit_terminal_events(run.particle_state, events)
     run.performance.finish("time_terminal_events", started_at)
     started_at = run.performance.start()
     runtime._advance_capillary_source(run.particle_state, dt_s, new_time_s)
@@ -282,19 +380,20 @@ def advance_micro_steps(
     while run.clock.time_s < macro_end_s:
         if _runtime_stop_requested(runtime, run):
             break
-        if len(runtime._active_indices(run.particle_state)) == 0:
-            if not runtime._continuous_source_enabled():
-                run.termination.finish("all_particles_terminal")
+        with runtime._micro_step_scope(run.particle_state):
+            if len(runtime._active_indices(run.particle_state)) == 0:
+                if not runtime._continuous_source_enabled():
+                    run.termination.finish("all_particles_terminal")
+                    break
+                if not _advance_idle_source(runtime, run, macro_end_s):
+                    break
+                continue
+            prepared = _prepare_timestep(runtime, run, macro_end_s)
+            if prepared is None:
                 break
-            if not _advance_idle_source(runtime, run, macro_end_s):
+            _apply_collision_and_push(runtime, run, prepared)
+            _apply_terminal_and_source(runtime, run, prepared.dt_s)
+            _apply_particle_stop_conditions(runtime, run)
+            if run.termination.finished:
                 break
-            continue
-        prepared = _prepare_timestep(runtime, run, macro_end_s)
-        if prepared is None:
-            break
-        _apply_collision_and_push(runtime, run, prepared)
-        _apply_terminal_and_source(runtime, run, prepared.dt_s)
-        _apply_particle_stop_conditions(runtime, run)
-        if run.termination.finished:
-            break
-        _maybe_emit_progress(runtime, run, observer)
+            _maybe_emit_progress(runtime, run, observer)

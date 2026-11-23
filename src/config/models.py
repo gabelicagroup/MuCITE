@@ -181,6 +181,7 @@ class SimulationConfig:
     iict_cli_override_fields: tuple[str, ...] = ()
     collision_model: str = "explicit"
     fragmentation_mode: str = "transport"
+    dissociation_check_every: int = 100
     gas_species: str = "n2"
     gas_gamma: float = 1.4
     gas_molar_mass_kg_per_mol: float = N2_MOLAR_MASS_KG_PER_MOL
@@ -188,3 +189,6 @@ class SimulationConfig:
     langevin_z_end_m: float = 6.0e-3
     langevin_switch_probability: float = 0.05
     langevin_max_dt_s: float = 1.0e-9
+    langevin_min_collisions: float = 8.0
+    langevin_max_relaxation: float = 0.1
+    langevin_max_energy_fraction: float = 0.05

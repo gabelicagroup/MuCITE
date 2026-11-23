@@ -14,6 +14,7 @@ class InvalidTimeStepError(RuntimeError):
         self,
         particle_indices: np.ndarray,
         candidates_s: np.ndarray,
+        reason: str | None = None,
     ) -> None:
         self.particle_indices = np.asarray(particle_indices, dtype=np.int64)
         self.candidates_s = np.asarray(candidates_s, dtype=np.float64)
@@ -27,7 +28,8 @@ class InvalidTimeStepError(RuntimeError):
         if self.particle_indices.size > 8:
             pairs += ", ..."
         super().__init__(
-            f"Invalid dt candidate(s) for active particle slot(s): {pairs}"
+            (reason or "Invalid dt candidate(s) for active particle slot(s)")
+            + f": {pairs}"
         )
 
 
@@ -74,6 +76,20 @@ def select_active_timestep(
         dt_s=float(active_candidates[local_index]),
         particle_index=int(active_indices[local_index]),
     )
+
+
+def select_indexed_timestep(
+    candidates_s: np.ndarray, particle_indices: np.ndarray,
+) -> SelectedTimeStep:
+    """Validate a compact active download and preserve original slot IDs."""
+    indices = np.asarray(particle_indices, dtype=np.int32)
+    try:
+        selected = select_active_timestep(candidates_s, np.ones(indices.size, dtype=bool))
+    except InvalidTimeStepError as error:
+        raise InvalidTimeStepError(
+            indices[error.particle_indices], error.candidates_s,
+        ) from error
+    return SelectedTimeStep(selected.dt_s, int(indices[selected.particle_index]))
 
 
 def velocity_cfl_timestep(

@@ -370,6 +370,10 @@ def _validate_electrode_and_collision(config: SimulationConfig) -> None:
         )
     if int(config.collision_batch_size) < 0:
         raise ValueError("collision_batch_size must be non-negative.")
+    if (isinstance(config.dissociation_check_every, bool)
+            or not isinstance(config.dissociation_check_every, (int, np.integer))
+            or config.dissociation_check_every < 0):
+        raise ValueError("dissociation_check_every must be a non-negative integer.")
     validate_iict_request(config)
     _require_nonnegative(config.langevin_z_start_m, "langevin_z_start_m")
     _require_nonnegative(config.langevin_z_end_m, "langevin_z_end_m")
@@ -388,6 +392,11 @@ def _validate_electrode_and_collision(config: SimulationConfig) -> None:
     if switch > 1.0:
         raise ValueError("langevin_switch_probability must be in [0, 1].")
     _require_nonnegative(config.langevin_max_dt_s, "langevin_max_dt_s")
+    if _require_positive(config.langevin_min_collisions, "langevin_min_collisions") < 1:
+        raise ValueError("langevin_min_collisions must be >= 1.")
+    for name in ("langevin_max_relaxation", "langevin_max_energy_fraction"):
+        if _require_positive(getattr(config, name), name) > 0.25:
+            raise ValueError(f"{name} must be <= 0.25.")
 
 
 def validate_simulation_config(config: SimulationConfig) -> None:

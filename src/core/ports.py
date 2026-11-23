@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from contextlib import AbstractContextManager
 from pathlib import Path
 from typing import Any, Protocol, runtime_checkable
 
@@ -91,6 +92,14 @@ class SimulationRuntime(Protocol):
 
     def _active_indices(self, state: dict[str, np.ndarray]) -> np.ndarray: ...
 
+    def _micro_step_scope(self, state: dict[str, np.ndarray]) -> AbstractContextManager: ...
+
+    def _enable_motion_cache(self) -> None: ...
+
+    def _invalidate_motion_cache(self, *, after_push: bool = False) -> None: ...
+
+    def _check_dissociation_survival(self, state: dict[str, np.ndarray]) -> None: ...
+
     def _continuous_source_enabled(self) -> bool: ...
 
     def _apply_stage_for_time(self, time_s: float) -> None: ...
@@ -150,6 +159,20 @@ class SimulationRuntime(Protocol):
         dt_s: float,
         event_time_s: float,
     ) -> np.ndarray: ...
+
+    def _collect_terminal_boundary_events(
+        self, state: dict[str, np.ndarray], event_time_s: float, *,
+        step_start_time_s: float, step_dt_s: float,
+    ) -> Any: ...
+
+    def _advance_dissociation(
+        self, state: dict[str, np.ndarray], *, step_start_time_s: float,
+        step_dt_s: float, events: Any,
+    ) -> Any: ...
+
+    def _commit_terminal_events(
+        self, state: dict[str, np.ndarray], events: Any,
+    ) -> None: ...
 
     def _inject_continuous_source(
         self,

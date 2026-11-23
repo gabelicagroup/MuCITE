@@ -33,6 +33,7 @@ class ParticleRuntimeState:
     birth_time_s: np.ndarray
     phase_codes: np.ndarray
     ever_used: np.ndarray
+    dissociation_hazard: np.ndarray
     next_track_id: int = 0
 
     @classmethod
@@ -63,6 +64,7 @@ class ParticleRuntimeState:
             birth_time_s=np.full(count, np.nan, dtype=np.float64),
             phase_codes=np.full(count, SLOT_FREE, dtype=np.int16),
             ever_used=np.zeros(count, dtype=bool),
+            dissociation_hazard=np.zeros(count, dtype=np.float64),
             next_track_id=0,
         )
 
@@ -101,6 +103,7 @@ class ParticleRuntimeState:
         owner._particle_mass_kg = self.mass_kg
         owner._particle_weight = self.weight
         owner._particle_parent_weight = self.parent_weight
+        owner._particle_dissociation_hazard = self.dissociation_hazard
         owner._particle_track_id = self.track_id
         owner._particle_birth_time_s = self.birth_time_s
         owner._particle_phase_codes = self.phase_codes

@@ -7,6 +7,8 @@ from collections import deque
 from dataclasses import dataclass, field
 from typing import Any
 
+import numpy as np
+
 from .metrics import BoundedMacroHistory, OnlineTimeStepStatistics
 from .metrics import (
     DEFAULT_DT_QUANTILE_RESERVOIR_SIZE,
@@ -23,6 +25,7 @@ PERFORMANCE_SECTIONS = (
     "time_upload_state",
     "time_rk4_push",
     "time_terminal_events",
+    "time_dissociation",
     "time_source_injection",
 )
 
@@ -94,6 +97,7 @@ class RunState:
     termination: RunTermination = field(default_factory=RunTermination)
     performance: PerformanceBreakdown = field(default_factory=PerformanceBreakdown)
     collision_count: int = 0
+    collision_rates_hz: np.ndarray | None = None
     export_directory: str | None = None
     last_progress_wall_time: float = field(default_factory=time.monotonic)
     terminal_count_history: deque[int] = field(init=False)

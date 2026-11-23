@@ -88,6 +88,33 @@ class IonCloud3D:
             velocities[j, 2] = self.vz[p]
 
     @ti.kernel
+    def gather_terminal_metadata(
+        self,
+        indices: ti.types.ndarray(dtype=ti.i32, ndim=1),
+        statuses: ti.types.ndarray(dtype=ti.i32, ndim=1),
+        electrode_ids: ti.types.ndarray(dtype=ti.i32, ndim=1),
+        distances_m: ti.types.ndarray(dtype=ti.f64, ndim=1),
+        count: ti.i32,
+    ):
+        """Export only the valid prefix of the compact device event list."""
+        for j in range(count):
+            indices[j] = self.terminal_indices[j]
+            statuses[j] = self.terminal_status[j]
+            electrode_ids[j] = self.terminal_electrode_id[j]
+            distances_m[j] = self.terminal_surface_distance[j]
+
+    @ti.kernel
+    def update_weights(
+        self,
+        indices: ti.types.ndarray(dtype=ti.i32, ndim=1),
+        weights: ti.types.ndarray(dtype=ti.f64, ndim=1),
+        n_updates: ti.i32,
+    ):
+        """Update transport/PIC weights without changing motion or activation."""
+        for j in range(n_updates):
+            self.weight[indices[j]] = weights[j]
+
+    @ti.kernel
     def deactivate_indices(
         self,
         indices: ti.types.ndarray(dtype=ti.i32, ndim=1),

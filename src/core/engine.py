@@ -45,6 +45,9 @@ class SimulationEngine:
         try:
             self._initialize(run, progress_observer)
             self._advance(run, progress_observer)
+            started_at = run.performance.start()
+            self.runtime._check_dissociation_survival(run.particle_state)
+            run.performance.finish("time_dissociation", started_at)
             self._log_final_snapshot(run)
             self._resolve_termination(run)
             return build_simulation_result(self.runtime, run)
