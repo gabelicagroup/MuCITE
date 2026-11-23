@@ -1,10 +1,14 @@
 # MuCITE User Guide: Start Here
 
+> **MuCITE 2.0:** The original usage instructions below are retained. The
+> collision and dissociation limitations described in Section 10 are
+> historical; see the [2.0 release notes](../CHANGELOG.md) for current behavior.
+
 Applies to the GitHub release candidate in this repository. Documentation checked on **2026-09-14**. Author: Dr. Yihui Yan.
 
 This guide assumes no prior Python or numerical-simulation experience. Sections 1–5 take you through installation, a small test, the GUI, and output files. Read Sections 6–13 before using real instrument data. To understand or modify the program, continue with the [Source Code Guide](Source_Guide_en.md).
 
-The **repository root** is the directory containing `src`, `configs`, and `pyproject.toml`. After extracting the archive it will normally be named `MuCITE`; inside the author's development project it is named `github_release`. It is not the parent development directory and not the `src` directory.
+The **repository root** is the directory containing `src`, `configs`, and `pyproject.toml`. After extracting the 2.0 archive it will normally be named `MuCITE-2.0.0`. It is not the parent development directory and not the `src` directory.
 
 ## Contents
 
@@ -112,7 +116,7 @@ You do not need to activate the environment or change PowerShell execution polic
 If the verified parent project already contains `.python-runtime`, enter the release directory and use it instead:
 
 ```powershell
-Set-Location "D:\users\fasma16\Projects\Simu_IonSource\github_release"
+Set-Location .\MuCITE-2.0.0
 & ..\.python-runtime\python.exe --version
 & ..\.python-runtime\python.exe -m src --config configs/headless_smoke.json
 & ..\.python-runtime\python.exe -m src.render.gui
@@ -142,7 +146,7 @@ From the repository root:
 
 The first run may compile kernels. The example uses CPU, seed 7, eight weighted ion packs, and a total simulated time of `1e-9 s` (1 ns). Fragmentation is disabled and a small shared static/PIC mesh and synthetic fields are used.
 
-Local validation ended with `max_total_time`, eight survivors, 107 collisions, and 148 microsteps. Exact floating-point details may vary by platform. First confirm normal completion without a traceback or `numerical_failure`. `max_total_time` means the requested simulated duration was reached; it is not an error.
+The 2.0 local CPU smoke reached `max_total_time` with eight survivors and 107 collisions. Exact results can vary by platform. First confirm normal completion without a traceback or `numerical_failure`. `max_total_time` means the requested simulated duration was reached; it is not an error.
 
 ### 3.2 Generate readable results
 

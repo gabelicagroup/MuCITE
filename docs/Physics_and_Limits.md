@@ -1,8 +1,8 @@
 # Physics, preserved behavior, and validation limits
 
-This distribution is a publication-oriented copy, not a new numerical method.
-Original core scheduling, RK4, field gathering, PIC deposition/Poisson,
-boundaries, gas, and iict-lite formulas have not been changed for packaging.
+MuCITE 2.0 keeps the RK4 field pusher, axisymmetric PIC and field coordinate
+conventions. Collision-rate estimation, hybrid updates and dissociation
+scheduling differ from the earlier public release.
 
 ## Independent IICT
 
@@ -19,17 +19,30 @@ Classical heat capacity is `(3*num_atoms-6)*kB` per ion. Tables must have explic
 SI/Da units and satisfy the implementation's finite-value, monotonicity, grid,
 and range checks.
 
-## Fragmentation caveat inherited from the current src snapshot
+## Collision rates, hybrid updates, and dissociation
 
-The existing production runtime consumes the backend fragmentation probability
-on selected explicit collision updates. It does not implement a separate
-all-active-ion hazard integration after every microstep. Thus the backend's
-Eyring probability unit tests do not establish collision-independent lifetime
-integration in the full runtime. Hybrid-Langevin updates are not proof of
-internal-energy thermalization. Fragmentation is disabled in the public demos.
+The collision rate is number density times cross section times the mean
+relative speed to the neutral Maxwell distribution. At zero drift it is
+nonzero at positive gas temperature and density. The time-step constraint
+and explicit event sampler share this model.
 
-Do not apply an archived docs/src_v5.1 patch to this release by assumption.
-A change to the full-runtime fragmentation timing needs its own validation.
+The experimental hybrid operator uses joint velocity and internal-energy
+moments from the IICT collision rule. It uses Gaussian steps only where the
+expected event count, momentum relaxation, and energy guards permit; otherwise
+it resolves binary events. A hybrid window does not guarantee any Gaussian
+steps, speedup, or agreement with an explicit run.
+
+Dissociation is integrated separately from collision occurrence. The hazard
+increases by the rate at post-collision internal temperature times the time
+alive in the step. Terminal times truncate the increment; birth is not
+retroactive. Parent weight decays exponentially. Transport mode retains
+total transport weight and PIC charge, loss mode removes fragmented weight,
+and off bypasses dissociation. No separate fragment trajectories are spawned.
+The public demos keep fragmentation disabled.
+
+The splitting is still collision-before-RK4. Validate the collision and
+dissociation results under time-step refinement for the regime being studied;
+the new integration does not make Eyring parameters universal.
 
 ## Time and mesh error
 

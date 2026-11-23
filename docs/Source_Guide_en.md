@@ -1,6 +1,10 @@
 # MuCITE Source Code Responsibilities and API Guide
 
-Applies to the public `src/` tree, checked on 2026-09-14. This guide explains where code belongs, how layers call one another, and where to start when changing a feature. Run the software first with the [beginner user guide](User_Guide_en.md). The generated [Package Layout](Package_Layout.md) lists all 242 Python modules, responsibilities, sizes, and duplicate-file results.
+This guide explains the public `src/` architecture. The original guide was
+checked on 2026-09-14; see the [2.0 release notes](../CHANGELOG.md) for changes
+to collision scheduling and outputs. Run the software first with the
+[beginner user guide](User_Guide_en.md). The generated [Package Layout](Package_Layout.md)
+lists the 2.0 modules, responsibilities, sizes, and duplicate-file results.
 
 ## 1. Vocabulary
 
@@ -341,7 +345,7 @@ Compileall checks compilation, not physics. Pytest covers distributed configurat
 
 ```powershell
 & .\.venv\Scripts\python.exe tools/package_github.py
-& .\.venv\Scripts\python.exe tools/check_release.py --archive dist/MuCITE-github.zip
+& .\.venv\Scripts\python.exe tools/check_release.py --archive dist/MuCITE-2.0.0-github.zip
 ```
 
 Do not publish the parent project, private data, runtime environments, paper PDFs, IonSPA, or unreviewed outputs. MuCITE-owned code is distributed under GPLv3; see `LICENSE.md`. Third-party tools, optional providers, and user-supplied datasets retain their own terms.
