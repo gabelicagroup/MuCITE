@@ -1,4 +1,4 @@
-include README.md LICENSE.md THIRD_PARTY_NOTICES.md CITATION.cff
+include README.md CHANGELOG.md LICENSE.md THIRD_PARTY_NOTICES.md CITATION.cff
 include requirements*.txt requirements.lock
 recursive-include configs *.json *.md
 recursive-include docs *.md *.json

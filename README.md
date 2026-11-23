@@ -1,4 +1,4 @@
-# MuCITE
+# MuCITE 2.0
 
 Ion trajectory simulation, developed by **Dr. Yihui Yan** from Gabelica Group.
 MuCITE propagates weighted ion packs in three dimensions, using axisymmetric
@@ -8,6 +8,21 @@ collision physics. A Cartesian field/mask overlay is also available.
 This public release uses the independent `iict-lite` backend for its
 demonstrations. **IonSPA source and data are not included.** MuCITE is licensed
 under the GNU General Public License version 3; see [LICENSE.md](LICENSE.md).
+
+## What's new in 2.0
+
+MuCITE 2.0 integrates dissociation over each ion pack's actual transport time,
+uses thermal gas motion when calculating collision rates, and adds an
+experimental joint velocity/internal-energy hybrid model with binary-event
+fallback. It also reduces per-step data transfers and adds spatial ion,
+gas-flow, field-alignment, and precursor-survival diagnostics.
+
+The existing installation and workflow instructions below still apply.
+The original [user guide](docs/User_Guide_en.md) is retained with version
+notes and a portable example path; use
+the [2.0 release notes](CHANGELOG.md) and updated
+[physics and limits](docs/Physics_and_Limits.md) for numerical behavior,
+new CLI parameters, output schema changes, and migration advice.
 
 ## User documentation
 
@@ -120,10 +135,10 @@ boundaries. They do not require IonSPA or the private final SIMION benchmark.
 See [physics and limitations](docs/Physics_and_Limits.md) and the
 [package layout](docs/Package_Layout.md).
 
-Local release checks: **281 tests passed**; the fixed-seed CPU smoke completed
-107 collisions with 8 surviving packs. The installed wheel reproduced those
-counts. The installed `mucite` command, GUI construction, source exclusions,
-license metadata, and package builds passed.
+MuCITE 2.0 passed 424 tests on Windows/Python 3.11, including synthetic
+transport, dissociation, and public-distribution checks. The fixed-seed
+CPU demo reached its requested duration with 107 collisions and 8 survivors.
+These counts are an installation check, not a physical validation target.
 Generate a clean repository ZIP with `python tools/package_github.py`.
 
 ## Attribution
