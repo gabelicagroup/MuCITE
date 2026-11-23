@@ -9,6 +9,7 @@ import numpy as np
 
 from ...agents.ion import IonState
 from ..gas.layered import GasState
+from ..gas.kinetics import collision_frequency_s_inverse
 
 
 VectorLike = Union[Iterable[float], np.ndarray]
@@ -51,7 +52,15 @@ class AdaptiveRK4Integrator:
         """Estimate the mean collision time from the local neutral density."""
 
         relative_speed = np.linalg.norm(ion.velocity_m_per_s - gas_state.velocity_m_per_s)
-        collision_rate = gas_state.number_density_m3 * ion.collision_cross_section_m2 * max(relative_speed, 1.0e-9)
+        if gas_state.number_density_m3 == 0 or ion.collision_cross_section_m2 == 0:
+            return np.inf
+        collision_rate = collision_frequency_s_inverse(
+            ion_speed_m_per_s=relative_speed,
+            gas_temperature_k=gas_state.temperature_k,
+            gas_mass_kg=gas_state.mass_density_kg_per_m3 / gas_state.number_density_m3,
+            gas_number_density_m3=gas_state.number_density_m3,
+            collision_cross_section_m2=ion.collision_cross_section_m2,
+        )
         if collision_rate <= 0.0:
             return np.inf
         return 1.0 / collision_rate
@@ -83,6 +92,10 @@ class AdaptiveRK4Integrator:
         dt = float(np.clip(dt, self.min_dt_s, self.max_dt_s))
         if np.isfinite(dt_upper_bound_s):
             dt = min(dt, max(float(dt_upper_bound_s), 0.0))
+        if dt > self.collision_safety_factor * tau_collision * (1.0 + 1.0e-12):
+            raise FloatingPointError(
+                "Minimum timestep violates the explicit collision-rate constraint."
+            )
         return dt
 
     def _acceleration(

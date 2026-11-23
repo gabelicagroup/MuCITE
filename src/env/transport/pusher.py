@@ -4,6 +4,7 @@ from typing import Optional
 
 import numpy as np
 import taichi as ti
+from scipy.constants import Avogadro
 
 from ..fields.axisymmetric_grid import UnifiedGrid2D
 from .field_gather import FieldGatherMixin
@@ -34,8 +35,8 @@ class ParticlePusher(
         pic_grid: Optional[UnifiedGrid2D] = None,
         drag_frequency_hz: float = 0.0,
         advection_cfl_fraction: float = 0.5,
-        collision_rate_model_code: int = 0,
-        gas_molecule_mass_kg: float = 1.0,
+        collision_rate_model_code: int = 1,
+        gas_molecule_mass_kg: float = 0.0280134 / Avogadro,
         electrode_mask: Optional[object] = None,
         electrode_mask3d: Optional[object] = None,
         cartesian_field3d: Optional[object] = None,

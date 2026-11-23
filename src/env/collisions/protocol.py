@@ -64,12 +64,32 @@ class CollisionPhysicsBackend(Protocol):
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Apply the scalar physical core to a vectorized event batch."""
 
+    def apply_collision_state_batch(
+        self, *,
+        velocities_m_per_s: np.ndarray,
+        masses_kg: np.ndarray,
+        internal_temperatures_k: np.ndarray,
+        gas_velocities_m_per_s: np.ndarray,
+        gas_temperatures_k: np.ndarray,
+        gas_number_density_m3: np.ndarray,
+        gas_mass_density_kg_per_m3: np.ndarray,
+        template: IonTemplate,
+        gas_name: str,
+        dt_s: float,
+        rng: np.random.Generator,
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Return velocity and internal temperature, without dissociation."""
+
     def fragmentation_rate(
         self,
         temperature_k: float | np.ndarray,
         ion_parameters: IonTemplate,
     ) -> float | np.ndarray:
         """Return the unimolecular fragmentation rate in inverse seconds."""
+
+    @property
+    def internal_energy_bounds_j(self) -> tuple[float, float]:
+        """Admissible per-ion energy interval for Gaussian boundary guards."""
 
     @property
     def runtime_info(self) -> dict[str, Any]:

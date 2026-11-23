@@ -195,11 +195,7 @@ def install_particle_operators(
         owner.static_grid,
         pic_grid=owner.pic_grid,
         advection_cfl_fraction=config.advection_cfl_fraction,
-        collision_rate_model_code=(
-            1
-            if str(config.collision_physics_backend).lower() == "iict-lite"
-            else 0
-        ),
+        collision_rate_model_code=1,
         gas_molecule_mass_kg=config.gas_molar_mass_kg_per_mol / Avogadro,
         electrode_mask=owner.electrode_mask,
         electrode_mask3d=owner.electrode_mask3d,
@@ -211,8 +207,4 @@ def install_particle_operators(
         if str(config.collision_model).lower() == "hybrid-langevin"
         else 0
     )
-    owner.collision_rate_model_code = (
-        1
-        if str(config.collision_physics_backend).lower() == "iict-lite"
-        else 0
-    )
+    owner.collision_rate_model_code = 1

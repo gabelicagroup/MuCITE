@@ -11,6 +11,7 @@ from ...config import (
     SLOT_ACTIVE,
     SLOT_CAPILLARY,
 )
+from ..runtime.step_cache import invalidate_particle_cache
 
 
 class SourceSlotRuntimeMixin:
@@ -59,6 +60,7 @@ class SourceSlotRuntimeMixin:
         indices = np.asarray(indices, dtype=np.int32)
         if indices.size == 0:
             return
+        invalidate_particle_cache(self)
         state["positions"][indices, 2] = self._capillary_exit_z_m()
         positions = np.asarray(state["positions"][indices], dtype=np.float64)
         velocities = self._sample_external_emission_velocities(positions)
@@ -129,6 +131,7 @@ class SourceSlotRuntimeMixin:
         active: int,
         phase: int,
     ) -> None:
+        invalidate_particle_cache(self)
         state["positions"][indices] = positions
         state["velocities"][indices] = velocities
         state["charge"][indices] = (
@@ -157,6 +160,7 @@ class SourceSlotRuntimeMixin:
         self._particle_mass_kg[indices] = self.template.mass_kg
         self._particle_weight[indices] = weights
         self._particle_parent_weight[indices] = weights
+        self._particle_dissociation_hazard[indices] = 0.0
         self._particle_collision_counts[indices] = 0
         self._particle_status_codes[indices] = status
         self._particle_tof_s[indices] = np.nan
@@ -187,6 +191,7 @@ class SourceSlotRuntimeMixin:
         self._particle_electrode_id[indices] = -1
         self._particle_surface_distance_m[indices] = np.nan
         self._particle_birth_time_s[indices] = float(event_time_s)
+        self._particle_dissociation_hazard[indices] = 0.0
         self._particle_phase_codes[indices] = SLOT_ACTIVE
 
     def _activate_cloud_slots(

@@ -8,7 +8,7 @@ import numpy as np
 from scipy.constants import Avogadro
 
 from ...config import CollisionBatchUpdate, LocalStateBatch
-from .iict_lite.physics import mean_relative_speed_m_per_s
+from ..gas.kinetics import mean_relative_speed_m_per_s
 from .probability import collision_probability_from_lambda_dt
 
 
@@ -29,19 +29,18 @@ def _collision_inputs(
         velocities - samples.gas_velocity_m_per_s,
         axis=1,
     )
-    if str(runtime.config.collision_physics_backend).lower() == "iict-lite":
-        relative_speed = np.asarray(
-            mean_relative_speed_m_per_s(
-                relative_speed,
-                samples.temperature_k,
-                runtime.config.gas_molar_mass_kg_per_mol / Avogadro,
-            ),
-            dtype=np.float64,
-        )
+    relative_speed = np.asarray(
+        mean_relative_speed_m_per_s(
+            relative_speed,
+            samples.temperature_k,
+            runtime.config.gas_molar_mass_kg_per_mol / Avogadro,
+        ),
+        dtype=np.float64,
+    )
     collision_rate = (
         samples.number_density_m3
         * runtime.template.collision_cross_section_m2
-        * np.maximum(relative_speed, 1.0e-9)
+        * relative_speed
     )
     lambda_dt = collision_rate * float(dt_s)
     hybrid_mask = np.zeros(active_indices.size, dtype=bool)
@@ -51,6 +50,8 @@ def _collision_inputs(
             (z_m >= float(runtime.config.langevin_z_start_m))
             & (z_m <= float(runtime.config.langevin_z_end_m))
             & (lambda_dt >= float(runtime.config.langevin_switch_probability))
+            & ((runtime.config.langevin_max_dt_s <= 0)
+               | (dt_s <= runtime.config.langevin_max_dt_s))
         )
     return velocities, lambda_dt, hybrid_mask
 
@@ -61,8 +62,8 @@ def _hybrid_update(
     active_indices: np.ndarray,
     velocities: np.ndarray,
     samples: LocalStateBatch,
-    lambda_dt: np.ndarray,
     hybrid_mask: np.ndarray,
+    dt_s: float,
 ) -> CollisionBatchUpdate:
     runtime = operator.runtime
     if not np.any(hybrid_mask):
@@ -73,7 +74,8 @@ def _hybrid_update(
         np.asarray(velocities[hybrid_mask], dtype=np.float64),
         np.asarray(samples.gas_velocity_m_per_s[hybrid_mask], dtype=np.float64),
         np.asarray(samples.temperature_k[hybrid_mask], dtype=np.float64),
-        np.asarray(lambda_dt[hybrid_mask], dtype=np.float64),
+        gas_number_density_m3=np.asarray(samples.number_density_m3[hybrid_mask], dtype=np.float64),
+        dt_s=dt_s,
     )
 
 
@@ -108,7 +110,8 @@ def apply_collision_updates(
     )
     hybrid_update = _hybrid_update(
         operator, state, active_indices, velocities, samples,
-        lambda_dt, hybrid_mask,
+        hybrid_mask,
+        dt_s,
     )
     hit_offsets = _explicit_hit_offsets(runtime, lambda_dt, hybrid_mask)
     if hit_offsets.size == 0:

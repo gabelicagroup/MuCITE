@@ -7,12 +7,56 @@ from typing import Optional
 import numpy as np
 
 from ...config import CollisionBatchUpdate, LocalStateBatch
+from .dissociation import (
+    advance_dissociation, DISSOCIATION_SCHEDULE_VERSION, LOSS_WEIGHT_UNDERFLOW_LIMIT,
+    check_final_transport_survival,
+)
+from ..boundaries.events import TerminalEvents
+from ..gas.kinetics import COLLISION_RATE_MODEL
+from .joint_step import JOINT_LANGEVIN_VERSION
 
 
 class CollisionStateMixin:
     """Collision counters, empty updates, and runtime dispatch."""
 
+    def _check_dissociation_survival(self, state: dict[str, np.ndarray]) -> None:
+        check_final_transport_survival(self, state)
+
+    def _advance_dissociation(
+        self, state: dict[str, np.ndarray], *, step_start_time_s: float,
+        step_dt_s: float, events: TerminalEvents,
+    ) -> TerminalEvents:
+        return advance_dissociation(
+            self, state, step_start_time_s=step_start_time_s,
+            step_dt_s=step_dt_s, events=events,
+        )
+
     def _reset_collision_statistics(self) -> None:
+        self._particle_step_cache = None
+        self._dissociation_rate_cache = None
+        self._dissociation_step_count = 0
+        self.dissociation_runtime_info = {
+            "dissociation_schedule_version": DISSOCIATION_SCHEDULE_VERSION,
+            "collision_rate_model": COLLISION_RATE_MODEL,
+            "hazard_definition": "integral k(T_internal) dt; dimensionless",
+            "transport_survival_max_abs_error": 0.0,
+            "transport_survival_max_relative_error": 0.0,
+            "transport_survival_checks": 0,
+            "dissociation_check_every": int(getattr(self.config, "dissociation_check_every", 100)),
+            "dissociation_rate_evaluated_particles": 0,
+            "dissociation_rate_cache_hits": 0,
+            "loss_weight_underflow_limit": LOSS_WEIGHT_UNDERFLOW_LIMIT,
+            "loss_underflow_depletions": 0,
+            "hybrid_internal_energy_corrected": True,
+            "hybrid_joint_model": JOINT_LANGEVIN_VERSION,
+            "hybrid_joint_status": "experimental; convergence required for each physical regime",
+            "hybrid_joint_gaussian_steps": 0,
+            "hybrid_joint_binary_events": 0,
+            "hybrid_joint_guard_fallbacks": 0,
+            "hybrid_joint_energy_boundary_guard_sigmas": 8,
+            "hybrid_joint_gas_environment": "frozen over the outer collision operator",
+            "hybrid_collision_count_note": "actual binary events plus rounded expected dense-step counts",
+        }
         self._collision_real_ions_represented = 0.0
         self._fragmented_real_ions_represented = 0.0
         self._collision_macro_events = 0

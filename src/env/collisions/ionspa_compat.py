@@ -29,6 +29,7 @@ class IonSpaBackendAdapter:
             project_root=self.project_root,
             backend=config.ionspa_backend,
         )
+        self._delegate._build_ion_model(template)
 
     @property
     def ionspa(self) -> Any:
@@ -102,11 +103,22 @@ class IonSpaBackendAdapter:
             rng=rng,
         )
 
+    def apply_collision_state_batch(
+        self, **kwargs: Any,
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Collision-only interface used by the physical-time scheduler."""
+        return self._delegate.apply_collision_state_batch(**kwargs)
+
     def apply_collision_batch(
         self,
         **kwargs: Any,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
         return self._delegate.apply_collision_batch(**kwargs)
+
+    @property
+    def internal_energy_bounds_j(self) -> tuple[float, float]:
+        model = self._delegate._build_ion_model(self.template)
+        return getattr(model, "energy_range_j", (0.0, float("inf")))
 
     @property
     def runtime_info(self) -> dict[str, Any]:
@@ -115,6 +127,10 @@ class IonSpaBackendAdapter:
             {
                 "collision_physics_backend": "ionspa",
                 "ionspa_loaded": self.ionspa is not None,
+                "heat_capacity_profiles": [
+                    model.range_metadata for model in self._delegate._ion_model_cache.values()
+                    if hasattr(model, "range_metadata")
+                ],
                 "license_responsibility": (
                     "The user must hold a valid license for the selected "
                     "IonSPA provider."

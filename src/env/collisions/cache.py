@@ -7,6 +7,7 @@ from typing import Any
 from scipy.constants import Avogadro
 
 from ...config import IonTemplate
+from .heat_capacity_guard import CheckedIonModel
 from .models import ApproximateIonModel
 
 
@@ -47,7 +48,10 @@ class IonModelCacheMixin:
             refdH=template.delta_h_kj_per_mol,
             refdS=template.delta_s_j_per_mol_k,
         )
-        ion_model = self.ionspa.ionclass(ion_dict)
+        ion_model = CheckedIonModel(
+            self.ionspa.ionclass(ion_dict), template.heat_capacity_profile,
+        )
+        ion_model.UfromT(template.initial_internal_temperature_k)
         self._ion_model_cache[cache_key] = ion_model
         return ion_model
 

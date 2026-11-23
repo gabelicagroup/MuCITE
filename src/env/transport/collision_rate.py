@@ -32,25 +32,25 @@ def iict_mean_relative_speed(
 ) -> ti.f64:
     """Prell 2024 Eq. 55-56; DOI 10.1016/j.ijms.2024.117290."""
 
-    thermal_scale = ti.sqrt(
-        2.0 * boltzmann_j_per_k * gas_temperature_k
-        / gas_molecule_mass_kg
-    )
-    s_value = bulk_relative_speed_m_per_s / thermal_scale
-    bracket = 1.0
-    if s_value >= 1.0e-6:
-        erf_value = _erf_approx_positive(s_value)
-        bracket = (
-            (s_value + 0.5 / s_value)
-            * 0.886226925452758
-            * erf_value
-            + 0.5 * ti.exp(-(s_value * s_value))
+    result = bulk_relative_speed_m_per_s
+    if gas_temperature_k > 0.0:
+        thermal_scale = ti.sqrt(
+            2.0 * boltzmann_j_per_k * gas_temperature_k / gas_molecule_mass_kg
         )
-    mean_thermal = ti.sqrt(
-        8.0 * boltzmann_j_per_k * gas_temperature_k
-        / (3.141592653589793 * gas_molecule_mass_kg)
-    )
-    return mean_thermal * bracket
+        s_value = bulk_relative_speed_m_per_s / thermal_scale
+        bracket = 1.0
+        if s_value < 0.25:
+            u = s_value * s_value
+            bracket = 1.0 + u * (1.0 / 3.0 + u * (-1.0 / 30.0 + u * (
+                1.0 / 210.0 + u * (-1.0 / 1512.0 + u / 11880.0))))
+        else:
+            bracket = (
+                (s_value + 0.5 / s_value) * 0.886226925452758
+                * _erf_approx_positive(s_value)
+                + 0.5 * ti.exp(-(s_value * s_value))
+            )
+        result = 1.1283791670955126 * thermal_scale * bracket
+    return result
 
 
 __all__ = ["iict_mean_relative_speed"]

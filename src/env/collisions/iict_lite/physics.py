@@ -10,7 +10,10 @@ from dataclasses import dataclass
 
 import numpy as np
 from scipy.constants import Boltzmann
-from scipy.special import erf
+from ...gas.kinetics import (
+    collision_frequency_s_inverse,
+    mean_relative_speed_m_per_s,
+)
 
 
 @dataclass(frozen=True)
@@ -313,56 +316,6 @@ def steady_drift_temperature_k(
     if np.any(tg <= 0.0) or np.any(mg <= 0.0) or np.any(speed < 0.0):
         raise ValueError("Eq. 52 inputs must have physical positive values.")
     result = tg + mg * speed**2 / (3.0 * Boltzmann)
-    return float(result) if result.ndim == 0 else result
-
-
-def mean_relative_speed_m_per_s(
-    ion_speed_m_per_s: float | np.ndarray,
-    gas_temperature_k: float | np.ndarray,
-    gas_mass_kg: float | np.ndarray,
-) -> float | np.ndarray:
-    """Return the drifting Maxwellian mean relative speed, Eq. 55-56."""
-
-    speed, temperature, mass = np.broadcast_arrays(
-        ion_speed_m_per_s,
-        gas_temperature_k,
-        gas_mass_kg,
-    )
-    if np.any(speed < 0.0) or np.any(temperature <= 0.0) or np.any(mass <= 0.0):
-        raise ValueError("Eq. 55 inputs must have physical positive values.")
-    thermal_scale = np.sqrt(2.0 * Boltzmann * temperature / mass)
-    s_value = speed / thermal_scale
-    safe_s = np.maximum(s_value, 1.0e-8)
-    bracket = (
-        (safe_s + 0.5 / safe_s) * (np.sqrt(np.pi) / 2.0) * erf(safe_s)
-        + 0.5 * np.exp(-(safe_s**2))
-    )
-    bracket = np.where(s_value < 1.0e-8, 1.0, bracket)
-    result = np.sqrt(8.0 * Boltzmann * temperature / (np.pi * mass)) * bracket
-    return float(result) if result.ndim == 0 else result
-
-
-def collision_frequency_s_inverse(
-    *,
-    ion_speed_m_per_s: float | np.ndarray,
-    gas_temperature_k: float | np.ndarray,
-    gas_mass_kg: float | np.ndarray,
-    gas_number_density_m3: float | np.ndarray,
-    collision_cross_section_m2: float | np.ndarray,
-) -> float | np.ndarray:
-    """Return ``N_g * sigma_ig * <v_rel>`` from Eq. 54-56."""
-
-    speed, density, cross_section = np.broadcast_arrays(
-        ion_speed_m_per_s,
-        gas_number_density_m3,
-        collision_cross_section_m2,
-    )
-    if np.any(density < 0.0) or np.any(cross_section < 0.0):
-        raise ValueError("Gas density and collision cross section must be non-negative.")
-    mean_relative = np.asarray(
-        mean_relative_speed_m_per_s(speed, gas_temperature_k, gas_mass_kg)
-    )
-    result = density * cross_section * mean_relative
     return float(result) if result.ndim == 0 else result
 
 

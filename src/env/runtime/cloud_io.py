@@ -2,16 +2,48 @@
 
 from __future__ import annotations
 
+from contextlib import contextmanager
+from typing import Iterator
+
 import numpy as np
 from scipy.constants import elementary_charge
 
 from ...config import SLOT_FREE
+from .step_cache import ParticleStepCache, invalidate_particle_cache
 
 
 class CloudStateIOMixin:
     """Translate between NumPy runtime state and Taichi entity fields."""
 
+    @contextmanager
+    def _micro_step_scope(self, state: dict[str, np.ndarray]) -> Iterator[None]:
+        """Bound cached active slots and motion to one engine microstep."""
+        self._particle_step_cache = ParticleStepCache(state, motion_enabled=False)
+        try:
+            yield
+        finally:
+            invalidate_particle_cache(self)
+
+    def _enable_motion_cache(self) -> None:
+        """Enable reuse when hybrid coordination needs repeated motion reads."""
+        cache = getattr(self, "_particle_step_cache", None)
+        if cache is not None:
+            cache.motion_enabled = True
+
+    def _invalidate_motion_cache(self, *, after_push: bool = False) -> None:
+        """Discard pre-update values and choose reuse for the new stage."""
+        cache = getattr(self, "_particle_step_cache", None)
+        if cache is not None:
+            cache.invalidate_motion()
+            if after_push:
+                cache.motion_enabled = (
+                    getattr(self, "electrode_mask", None) is not None
+                    or getattr(self, "electrode_mask3d", None) is not None
+                    or getattr(getattr(self, "config", None), "fragmentation_mode", "") == "loss"
+                )
+
     def _upload_cloud_state(self, state: dict[str, np.ndarray]) -> None:
+        invalidate_particle_cache(self)
         self.cloud.x.from_numpy(
             np.asarray(state["positions"][:, 0], dtype=np.float64)
         )
@@ -47,6 +79,7 @@ class CloudStateIOMixin:
         state: dict[str, np.ndarray],
         slot_index: int,
     ) -> None:
+        invalidate_particle_cache(self)
         state["active"][slot_index] = 0
         state["phase"][slot_index] = SLOT_FREE
         state["weight"][slot_index] = 0.0
@@ -62,6 +95,7 @@ class CloudStateIOMixin:
         indices = np.asarray(particle_indices, dtype=np.int32)
         if indices.size == 0:
             return
+        CloudStateIOMixin._invalidate_motion_cache(self)
         self.cloud.apply_state_updates(
             indices,
             np.asarray(state["positions"][indices], dtype=np.float64),
@@ -89,8 +123,16 @@ class CloudStateIOMixin:
         if indices.size == 0:
             empty = np.zeros((0, 3), dtype=np.float64)
             return empty, empty.copy()
-        positions = np.zeros((indices.size, 3), dtype=np.float64)
-        velocities = np.zeros((indices.size, 3), dtype=np.float64)
+        cache = getattr(self, "_particle_step_cache", None)
+        gather = lambda selected: CloudStateIOMixin._gather_motion_rows(self, selected)
+        return gather(indices) if cache is None else cache.read(indices, gather)
+
+    def _gather_motion_rows(
+        self, indices: np.ndarray,
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Copy only requested slots, bypassing the stage cache."""
+        positions = np.empty((indices.size, 3), dtype=np.float64)
+        velocities = np.empty_like(positions)
         self.cloud.gather_motion_state(
             indices,
             positions,
@@ -116,6 +158,7 @@ class CloudStateIOMixin:
             "charge": self._particle_charge_c,
             "mass": self._particle_mass_kg,
             "weight": self._particle_weight,
+            "dissociation_hazard": self._particle_dissociation_hazard,
             "active": np.asarray(self.cloud.active.to_numpy(), dtype=np.int32),
             "temperature": np.asarray(
                 self.cloud.internal_temperature.to_numpy(),
@@ -136,4 +179,7 @@ class CloudStateIOMixin:
         state["velocities"][indices] = velocities
 
     def _active_indices(self, state: dict[str, np.ndarray]) -> np.ndarray:
+        cache = getattr(self, "_particle_step_cache", None)
+        if cache is not None and cache.state is state:
+            return cache.indices
         return np.flatnonzero(state["active"] != 0)

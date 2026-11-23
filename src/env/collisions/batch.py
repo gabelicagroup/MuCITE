@@ -115,7 +115,7 @@ def _simulate_collision_batch(
     gas_name: str,
     dt_s: float,
     rng: np.random.Generator,
-) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray]:
     ion_model = adapter._build_ion_model(template)
     u_before = np.asarray(
         ion_model.UfromT(inputs.temperatures),
@@ -144,22 +144,16 @@ def _simulate_collision_batch(
     )
     u_after = np.maximum(u_before + transferred, 0.0)
     temperature_after = np.asarray(ion_model.TfromU(u_after), dtype=np.float64)
-    increment = adapter._fracloss_many(
-        dt_s, temperature_after, template.delta_h_kj_per_mol,
-        template.delta_s_j_per_mol_k,
-    )
-    probability = 1.0 - np.exp(-np.maximum(increment, 0.0))
     return (
         np.asarray(velocity_after, dtype=np.float64),
         temperature_after,
-        np.asarray(probability, dtype=np.float64),
     )
 
 
 class BatchCollisionMixin:
     """Public vector collision API."""
 
-    def apply_collision_batch(
+    def apply_collision_state_batch(
         self,
         *,
         velocities_m_per_s: np.ndarray,
@@ -173,12 +167,12 @@ class BatchCollisionMixin:
         gas_name: str,
         dt_s: float,
         rng: np.random.Generator,
-    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Update velocity/internal temperature only; no dissociation exposure."""
         velocities = np.asarray(velocities_m_per_s, dtype=np.float64)
         if velocities.size == 0:
             return (
                 np.zeros((0, 3), dtype=np.float64),
-                np.zeros(0, dtype=np.float64),
                 np.zeros(0, dtype=np.float64),
             )
         inputs = _coerce_batch_inputs(
@@ -194,6 +188,16 @@ class BatchCollisionMixin:
             dt_s,
             rng,
         )
+
+    def apply_collision_batch(self, **kwargs: Any) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Legacy collision-plus-probability API, not used by the scheduler."""
+        velocity, temperature = self.apply_collision_state_batch(**kwargs)
+        template = kwargs["template"]
+        increment = self._fracloss_many(
+            kwargs["dt_s"], temperature, template.delta_h_kj_per_mol,
+            template.delta_s_j_per_mol_k,
+        )
+        return velocity, temperature, 1.0 - np.exp(-np.maximum(increment, 0.0))
 
 
 __all__ = ["BatchCollisionMixin"]

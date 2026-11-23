@@ -79,11 +79,11 @@ class ResultProjectionMixin:
         self,
         state: dict[str, np.ndarray],
     ) -> np.ndarray:
-        """Return the established 18-column active-particle table."""
+        """Append cumulative hazard to the unchanged first 18 snapshot columns."""
 
         indices = self._active_indices(state)
         if len(indices) == 0:
-            return np.zeros((0, 18), dtype=np.float64)
+            return np.zeros((0, 19), dtype=np.float64)
         positions = np.asarray(state["positions"][indices], dtype=np.float64)
         velocities = np.asarray(state["velocities"][indices], dtype=np.float64)
         masses = np.asarray(state["mass"][indices], dtype=np.float64)
@@ -111,5 +111,6 @@ class ResultProjectionMixin:
                 indices.astype(np.float64),
                 self._particle_status_codes[indices].astype(np.float64),
                 self._particle_collision_counts[indices].astype(np.float64),
+                self._particle_dissociation_hazard[indices],
             )
         )

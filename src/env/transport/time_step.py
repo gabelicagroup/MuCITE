@@ -57,10 +57,7 @@ class TimeStepConstraintMixin:
         pressure_pa = ti.max(gathered[7], 0.0)
         number_density_m3 = pressure_pa / (boltzmann_j_per_k * temperature_k)
         dvx, dvy, dvz = vx - gathered[3], vy - gathered[4], vz - gathered[5]
-        relative_speed = ti.max(
-            ti.sqrt(dvx * dvx + dvy * dvy + dvz * dvz),
-            1.0e-9,
-        )
+        relative_speed = ti.sqrt(dvx * dvx + dvy * dvy + dvz * dvz)
         if ti.static(self.collision_rate_model_code == 1):
             relative_speed = iict_mean_relative_speed(
                 relative_speed,
@@ -327,29 +324,37 @@ class TimeStepMixin(TimeStepConstraintMixin):
     def _download_dt_diagnostics_kernel(
         self,
         ions: ti.template(),
+        indices: ti.types.ndarray(dtype=ti.i32, ndim=1),
         dt_candidates_s: ti.types.ndarray(dtype=ti.f64, ndim=1),
         limiter_codes: ti.types.ndarray(dtype=ti.i32, ndim=1),
         raw_limiter_codes: ti.types.ndarray(dtype=ti.i32, ndim=1),
         collision_rates_hz: ti.types.ndarray(dtype=ti.f64, ndim=1),
     ):
-        for p in range(ions.n_particles):
-            dt_candidates_s[p] = ions.dt_candidate[p]
-            limiter_codes[p] = ions.dt_limiter[p]
-            raw_limiter_codes[p] = ions.dt_raw_limiter[p]
-            collision_rates_hz[p] = ions.collision_rate_hz[p]
+        for j in range(indices.shape[0]):
+            p = indices[j]
+            dt_candidates_s[j] = ions.dt_candidate[p]
+            limiter_codes[j] = ions.dt_limiter[p]
+            raw_limiter_codes[j] = ions.dt_raw_limiter[p]
+            collision_rates_hz[j] = ions.collision_rate_hz[p]
 
     def download_dt_diagnostics(
         self,
         ions: IonCloud3D,
+        indices: np.ndarray | None = None,
     ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-        """Download timestep selection and cached collision rates."""
+        """Download selected slots in caller order; omit indices for legacy use."""
 
-        dt_candidates_s = np.empty(ions.n_particles, dtype=np.float64)
-        limiter_codes = np.empty(ions.n_particles, dtype=np.int32)
-        raw_limiter_codes = np.empty(ions.n_particles, dtype=np.int32)
-        collision_rates_hz = np.empty(ions.n_particles, dtype=np.float64)
+        if indices is None:
+            indices = np.arange(ions.n_particles, dtype=np.int32)
+        indices = np.ascontiguousarray(indices, dtype=np.int32)
+        count = indices.size
+        dt_candidates_s = np.empty(count, dtype=np.float64)
+        limiter_codes = np.empty(count, dtype=np.int32)
+        raw_limiter_codes = np.empty(count, dtype=np.int32)
+        collision_rates_hz = np.empty(count, dtype=np.float64)
         self._download_dt_diagnostics_kernel(
             ions,
+            indices,
             dt_candidates_s,
             limiter_codes,
             raw_limiter_codes,

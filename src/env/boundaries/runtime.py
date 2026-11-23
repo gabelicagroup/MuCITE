@@ -16,6 +16,7 @@ from ...config import (
 )
 from .events import TerminalEvents, concatenate_terminal_events
 from .localization import _boundary_limits
+from ..runtime.step_cache import invalidate_particle_cache
 
 
 def _localized_events(
@@ -59,6 +60,20 @@ class TerminalBoundaryRuntimeMixin:
         step_start_time_s: Optional[float] = None,
         step_dt_s: Optional[float] = None,
     ) -> np.ndarray:
+        events = TerminalBoundaryRuntimeMixin._collect_terminal_boundary_events(
+            self, state, event_time_s, step_start_time_s=step_start_time_s,
+            step_dt_s=step_dt_s,
+        )
+        if events.count:
+            TerminalBoundaryRuntimeMixin._commit_terminal_events(self, state, events)
+        return events.indices
+
+    def _collect_terminal_boundary_events(
+        self, state: dict[str, np.ndarray], event_time_s: float, *,
+        step_start_time_s: Optional[float] = None,
+        step_dt_s: Optional[float] = None,
+    ) -> TerminalEvents:
+        """Locate first terminal crossings without recording pre-decay weights."""
         swept = TerminalBoundaryRuntimeMixin._collect_swept_terminal_events(
             self,
             state,
@@ -72,15 +87,7 @@ class TerminalBoundaryRuntimeMixin:
             step_start_time_s,
             step_dt_s,
         )
-        events = concatenate_terminal_events(swept, endpoint).ordered()
-        if events.count == 0:
-            return np.zeros(0, dtype=np.int32)
-        TerminalBoundaryRuntimeMixin._commit_terminal_events(
-            self,
-            state,
-            events,
-        )
-        return events.indices
+        return concatenate_terminal_events(swept, endpoint).ordered()
 
     def _collect_swept_terminal_events(
         self,
@@ -214,26 +221,22 @@ class TerminalBoundaryRuntimeMixin:
         self,
         event_time_s: float,
     ) -> TerminalEvents:
-        count = int(self.cloud.terminal_count.to_numpy().item())
-        indices = np.asarray(
-            self.cloud.terminal_indices.to_numpy()[:count],
-            dtype=np.int32,
+        count = int(self.cloud.terminal_count[None])
+        if count == 0:
+            return TerminalEvents.empty()
+        indices = np.empty(count, dtype=np.int32)
+        statuses = np.empty(count, dtype=np.int32)
+        electrode_ids = np.empty(count, dtype=np.int32)
+        distances_m = np.empty(count, dtype=np.float64)
+        self.cloud.gather_terminal_metadata(
+            indices, statuses, electrode_ids, distances_m, count,
         )
         positions, velocities = self._download_selected_motion_state(indices)
         return TerminalEvents(
             indices=indices,
-            statuses=np.asarray(
-                self.cloud.terminal_status.to_numpy()[:count],
-                dtype=np.int16,
-            ),
-            electrode_ids=np.asarray(
-                self.cloud.terminal_electrode_id.to_numpy()[:count],
-                dtype=np.int32,
-            ),
-            surface_distances_m=np.asarray(
-                self.cloud.terminal_surface_distance.to_numpy()[:count],
-                dtype=np.float64,
-            ),
+            statuses=statuses.astype(np.int16),
+            electrode_ids=electrode_ids,
+            surface_distances_m=distances_m,
             positions_m=positions,
             velocities_m_per_s=velocities,
             event_times_s=np.full(count, float(event_time_s), dtype=np.float64),
@@ -267,6 +270,7 @@ class TerminalBoundaryRuntimeMixin:
         state: dict[str, np.ndarray],
         events: TerminalEvents,
     ) -> None:
+        invalidate_particle_cache(self)
         indices = events.indices
         self._particle_status_codes[indices] = events.statuses
         self._particle_tof_s[indices] = self._particle_tof_from_event_time(

@@ -68,6 +68,7 @@ def _hybrid_mask(
     runtime: Any,
     positions_m: np.ndarray,
     lambda_dt: np.ndarray,
+    dt_s: float,
 ) -> np.ndarray:
     mask = np.zeros(lambda_dt.size, dtype=bool)
     if str(runtime.config.collision_model).lower() == "hybrid-langevin":
@@ -75,6 +76,8 @@ def _hybrid_mask(
             (positions_m[:, 2] >= float(runtime.config.langevin_z_start_m))
             & (positions_m[:, 2] <= float(runtime.config.langevin_z_end_m))
             & (lambda_dt >= float(runtime.config.langevin_switch_probability))
+            & ((runtime.config.langevin_max_dt_s <= 0)
+               | (dt_s <= runtime.config.langevin_max_dt_s))
         )
     return mask
 
@@ -85,9 +88,9 @@ def _apply_preselected_hybrid(
     chunk_indices: np.ndarray,
     positions_m: np.ndarray,
     velocities_m_per_s: np.ndarray,
-    lambda_dt: np.ndarray,
     hybrid_mask: np.ndarray,
     time_s: float,
+    dt_s: float,
 ) -> Optional[CollisionBatchUpdate]:
     if not np.any(hybrid_mask):
         return None
@@ -102,7 +105,8 @@ def _apply_preselected_hybrid(
         velocities_m_per_s[hybrid_mask],
         hybrid_samples.gas_velocity_m_per_s,
         hybrid_samples.temperature_k,
-        lambda_dt[hybrid_mask],
+        gas_number_density_m3=hybrid_samples.number_density_m3,
+        dt_s=dt_s,
     )
 
 
@@ -157,11 +161,12 @@ def _preselected_chunk_updates(
         chunk_indices,
         dt_s,
     )
-    hybrid_mask = _hybrid_mask(runtime, positions_m, lambda_dt)
+    hybrid_mask = _hybrid_mask(runtime, positions_m, lambda_dt, dt_s)
     updates: list[CollisionBatchUpdate] = []
     hybrid_update = _apply_preselected_hybrid(
         runtime, state, chunk_indices, positions_m, velocities_m_per_s,
-        lambda_dt, hybrid_mask, time_s,
+        hybrid_mask, time_s,
+        dt_s,
     )
     if hybrid_update is not None:
         updates.append(hybrid_update)

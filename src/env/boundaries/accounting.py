@@ -202,6 +202,11 @@ def _build_terminal_batch(
         ),
         electrode_ids=electrode_ids,
         surface_distance_m=surface_distance_m,
+        dissociation_hazard=np.asarray(
+            getattr(owner, "_particle_dissociation_hazard",
+                    np.zeros_like(owner._particle_weight))[particle_indices],
+            dtype=np.float64,
+        ),
     )
 
 

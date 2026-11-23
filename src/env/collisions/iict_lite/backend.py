@@ -104,8 +104,7 @@ class IictLiteBackend:
         self,
         temperatures_k: np.ndarray,
         transferred_energy_j: np.ndarray,
-        dt_s: float,
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> np.ndarray:
         internal_before = np.asarray(
             self.energy_from_temperature(temperatures_k),
             dtype=np.float64,
@@ -121,14 +120,7 @@ class IictLiteBackend:
             self.temperature_from_energy(internal_after),
             dtype=np.float64,
         )
-        probability = np.asarray(
-            self.parameters.fragmentation.probability(
-                temperature_after,
-                _validated_dt(dt_s),
-            ),
-            dtype=np.float64,
-        )
-        return temperature_after, probability
+        return temperature_after
 
     def _apply_batch(
         self,
@@ -143,7 +135,8 @@ class IictLiteBackend:
         gas_name: str,
         dt_s: float,
         rng: np.random.Generator,
-    ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        _validated_dt(dt_s)
         temperatures = _finite_positive(
             internal_temperatures_k,
             "internal_temperatures_k",
@@ -169,15 +162,13 @@ class IictLiteBackend:
             pseudoatom_mass_kg=pseudoatom_mass,
             rng=rng,
         )
-        temperature_after, probability = self._updated_internal_state(
+        temperature_after = self._updated_internal_state(
             temperatures,
             core.transferred_internal_energy_j,
-            dt_s,
         )
         return (
             core.ion_velocity_after_m_per_s,
             temperature_after,
-            probability,
             core.transferred_internal_energy_j,
         )
 
@@ -191,7 +182,7 @@ class IictLiteBackend:
         dt_s: float,
         rng: np.random.Generator,
     ) -> CollisionOutcome:
-        velocity, temperature, probability, transferred = self._apply_batch(
+        velocity, temperature, transferred = self._apply_batch(
             velocities_m_per_s=np.asarray(ion.velocity_m_per_s)[None, :],
             masses_kg=np.asarray([ion.mass_kg]),
             internal_temperatures_k=np.asarray([ion.internal_temperature_k]),
@@ -210,10 +201,12 @@ class IictLiteBackend:
             velocity_m_per_s=velocity[0],
             internal_temperature_k=float(temperature[0]),
             transferred_internal_energy_j=float(transferred[0]),
-            fragmentation_probability=float(probability[0]),
+            fragmentation_probability=float(
+                self.parameters.fragmentation.probability(temperature, dt_s)[0]
+            ),
         )
 
-    def apply_collision_batch(
+    def apply_collision_state_batch(
         self,
         *,
         velocities_m_per_s: np.ndarray,
@@ -227,11 +220,12 @@ class IictLiteBackend:
         gas_name: str,
         dt_s: float,
         rng: np.random.Generator,
-    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Return only collision state; runtime time exposure is scheduled separately."""
         velocities = np.asarray(velocities_m_per_s, dtype=np.float64)
         if velocities.size == 0:
             empty = np.zeros(0, dtype=np.float64)
-            return np.zeros((0, 3), dtype=np.float64), empty, empty
+            return np.zeros((0, 3), dtype=np.float64), empty
         del template
         result = self._apply_batch(
             velocities_m_per_s=velocities,
@@ -245,7 +239,21 @@ class IictLiteBackend:
             dt_s=dt_s,
             rng=rng,
         )
-        return result[0], result[1], result[2]
+        return result[0], result[1]
+
+    def apply_collision_batch(self, **kwargs: Any) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Backward-compatible collision-plus-probability interface."""
+        velocity, temperature = self.apply_collision_state_batch(**kwargs)
+        probability = self.parameters.fragmentation.probability(
+            temperature, _validated_dt(kwargs["dt_s"]),
+        )
+        return velocity, temperature, np.asarray(probability, dtype=np.float64)
+
+    @property
+    def internal_energy_bounds_j(self) -> tuple[float, float]:
+        # These independent models deliberately support their positive-U
+        # extrapolation/analytic domain, unlike the retained IonSPA tables.
+        return 0.0, float("inf")
 
     @property
     def runtime_info(self) -> dict[str, Any]:
