@@ -24,8 +24,9 @@ from src.render.gui.models import AppConfig
 def test_distribution_identity_and_license_metadata() -> None:
     metadata = tomllib.loads((PROJECT_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     assert metadata["project"]["name"] == "mucite"
+    assert metadata["project"]["version"] == "2.0.0"
     assert metadata["project"]["scripts"] == {
-        "mucite": "src.render.cli.runner:run_cli",
+        "mucite": "src.render.cli.runner:main",
         "mucite-gui": "src.render.gui:launch_main_window",
     }
     assert metadata["project"]["license"] == {"file": "LICENSE.md"}
@@ -33,6 +34,36 @@ def test_distribution_identity_and_license_metadata() -> None:
     assert "license: GPL-3.0-only" in (PROJECT_ROOT / "CITATION.cff").read_text(
         encoding="utf-8"
     )
+
+
+def test_v2_cli_collision_controls_are_applied(tmp_path) -> None:
+    config_path = tmp_path / "requested.json"
+    result = subprocess.run(
+        [sys.executable, "-m", "src", "--dissociation-check-every", "7",
+         "--langevin-min-collisions", "12", "--langevin-max-relaxation", "0.08",
+         "--langevin-max-energy-fraction", "0.03", "--write-config", str(config_path)],
+        cwd=PROJECT_ROOT, capture_output=True, text=True, timeout=60,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    simulation = json.loads(config_path.read_text(encoding="utf-8"))["simulation"]
+    assert simulation["dissociation_check_every"] == 7
+    assert simulation["langevin_min_collisions"] == 12
+    assert simulation["langevin_max_relaxation"] == 0.08
+    assert simulation["langevin_max_energy_fraction"] == 0.03
+    assert simulation["collision_physics_backend"] == "iict-lite"
+
+
+@pytest.mark.parametrize("result,code", [
+    (None, 0),
+    (SimpleNamespace(termination_reason="max_total_time", numerical_failure={}), 0),
+    (SimpleNamespace(termination_reason="numerical_failure", numerical_failure={}), 1),
+    (SimpleNamespace(termination_reason="max_total_time", numerical_failure={"error": "test"}), 1),
+])
+def test_cli_entrypoint_returns_process_status(monkeypatch, result, code):
+    from src.render.cli import runner
+
+    monkeypatch.setattr(runner, "run_cli", lambda: result)
+    assert runner.main() == code
 
 
 def test_default_demo_runs_without_importing_or_opening_ionspa() -> None:
