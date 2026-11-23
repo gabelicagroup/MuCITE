@@ -10,7 +10,7 @@ from pathlib import Path
 
 import matplotlib
 import numpy as np
-from matplotlib.patches import Circle
+from matplotlib.patches import Circle, FancyArrowPatch, Rectangle
 from scipy.interpolate import LinearNDInterpolator, NearestNDInterpolator
 
 matplotlib.use("Agg")
@@ -58,7 +58,7 @@ class SourceSamples:
     speed_m_per_s: np.ndarray
 
 
-def _load_gas_interpolators(path: Path, z_min_m: float, z_max_m: float) -> GasInterpolators:
+def _load_gas_interpolators(path: Path, z_min_m: float, z_max_m: float, r_max_m: float | None = None) -> GasInterpolators:
     if not path.exists():
         raise FileNotFoundError(f"Gas CSV not found: {path}")
     if z_max_m < z_min_m:
@@ -79,6 +79,8 @@ def _load_gas_interpolators(path: Path, z_min_m: float, z_max_m: float) -> GasIn
         & (z_m >= z_min_m)
         & (z_m <= z_max_m)
     )
+    if r_max_m is not None:
+        valid &= (r_m >= 0) & (r_m <= r_max_m)
     if int(np.count_nonzero(valid)) < 3:
         raise ValueError(f"Fewer than 3 finite gas points in z=[{z_min_m * 1e3:g}, {z_max_m * 1e3:g}] mm.")
 
@@ -121,6 +123,7 @@ def _expected_radial_density(r_m: np.ndarray, sigma_m: float) -> np.ndarray:
 
 def _parse_panels(panel_text: str) -> list[str]:
     presets = {
+        "source-methods": ["source-schematic", "xy-density", "gas-vz-field", "vz-hist"],
         "paper": ["xy-density", "birth-zr", "vz-hist", "velocity-phase"],
         "default": ["xy-density", "radial-density", "birth-zr", "vz-hist", "vr-hist", "velocity-phase"],
         "gas": ["birth-zr", "vz-hist", "vr-hist", "velocity-phase"],
@@ -138,6 +141,7 @@ def _parse_panels(panel_text: str) -> list[str]:
         ],
     }
     aliases = {
+        "source-schematic": "source-schematic",
         "xy": "xy-density",
         "density": "xy-density",
         "xy-density": "xy-density",
@@ -238,7 +242,8 @@ def _build_samples(args: argparse.Namespace) -> SourceSamples:
     r_m = np.hypot(x_m, y_m)
     z_birth_m = rng.uniform(z_min_m, z_max_m, size=count) if z_max_m > z_min_m else np.full(count, z_min_m)
 
-    gas = _load_gas_interpolators(Path(args.gas_csv), z_min_m, z_max_m)
+    gas = _load_gas_interpolators(Path(args.gas_csv), z_min_m, z_max_m,
+                                  radius_m if args.panels == "source-methods" else None)
     vz_m_per_s = _sample_component(gas.linear_vz, gas.nearest_vz, z_birth_m, r_m)
     vr_raw_m_per_s = _sample_component(gas.linear_vr, gas.nearest_vr, z_birth_m, r_m)
     vr_m_per_s = float(args.radial_velocity_scale) * vr_raw_m_per_s
@@ -259,6 +264,7 @@ def _build_samples(args: argparse.Namespace) -> SourceSamples:
 
 def _panel_title(panel: str, args: argparse.Namespace) -> str:
     titles = {
+        "source-schematic": "Velocity sampling and injection",
         "xy-density": "Gaussian source density",
         "xy-scatter": "Transverse source samples",
         "radial-density": "Radial source density",
@@ -303,24 +309,27 @@ def _draw_xy_density(ax, fig, samples: SourceSamples, args: argparse.Namespace, 
         if float(args.xy_limit_mm) > 0.0
         else max(args.source_radius_mm * 1.2, args.source_gaussian_sigma_mm * 3.2)
     )
+    methods = args.panels == "source-methods"
     hist = ax.hist2d(
         samples.x_m * 1.0e3,
         samples.y_m * 1.0e3,
         bins=int(args.xy_bins),
         range=[[-limit, limit], [-limit, limit]],
         cmap=args.xy_cmap,
+        cmin=np.finfo(float).eps if methods else 1,
+        weights=np.full(len(samples.x_m), 100.0 / len(samples.x_m)) if methods else None,
     )
     ax.add_patch(
         Circle(
             (0.0, 0.0),
             args.source_radius_mm,
             fill=False,
-            color="white",
+            color="#404040" if methods else "white",
             linewidth=scaled(0.9, args.paper_line_scale),
             alpha=0.9,
         )
     )
-    _add_colorbar(fig, hist[3], ax, cax, "macro count/bin")
+    _add_colorbar(fig, hist[3], ax, cax, "Samples / bin (%)" if methods else "Samples per bin")
     ax.set_xlim(-limit, limit)
     ax.set_ylim(-limit, limit)
     ax.set_aspect("equal", adjustable="box")
@@ -385,7 +394,7 @@ def _draw_radial_density(ax, fig, samples: SourceSamples, args: argparse.Namespa
 
 def _draw_birth_z_hist(ax, fig, samples: SourceSamples, args: argparse.Namespace, cax=None) -> None:
     ax.hist(samples.z_birth_m * 1.0e3, bins=int(args.z_bins), color="#4c78a8", alpha=0.82)
-    ax.set_xlabel("birth z used for gas velocity [mm]")
+    ax.set_xlabel("Velocity-sampling coordinate / mm")
     ax.set_ylabel("count")
     _set_panel_title(ax, "birth-z-hist", args)
     ax.grid(True, alpha=0.22)
@@ -403,7 +412,7 @@ def _draw_birth_zr(ax, fig, samples: SourceSamples, args: argparse.Namespace, ca
         linewidths=0,
     )
     _add_colorbar(fig, scatter, ax, cax, r"$v_z$ [m/s]")
-    ax.set_xlabel(r"$z$ [mm]")
+    ax.set_xlabel(r"CFD sampling coordinate $s$ [mm]")
     ax.set_ylabel(r"$r$ [mm]")
     _set_panel_title(ax, "birth-zr", args)
     ax.grid(True, alpha=0.18)
@@ -419,20 +428,25 @@ def _draw_gas_vz_field(ax, fig, samples: SourceSamples, args: argparse.Namespace
     r_grid_mm = np.linspace(0.0, r_max_mm, 120)
     zg_mm, rg_mm = np.meshgrid(z_grid_mm, r_grid_mm)
     vz_grid = _sample_component(gas.linear_vz, gas.nearest_vz, zg_mm.ravel() * 1.0e-3, rg_mm.ravel() * 1.0e-3).reshape(zg_mm.shape)
-    plot_idx = _plot_indices(samples, args)
-    im = ax.contourf(zg_mm, rg_mm, vz_grid, levels=60, cmap="viridis")
-    ax.scatter(samples.z_birth_m[plot_idx] * 1.0e3, samples.r_m[plot_idx] * 1.0e3, s=3, c="white", alpha=0.25, linewidths=0)
-    _add_colorbar(fig, im, ax, cax, r"gas axial velocity $v_z$ [m/s]")
-    ax.set_xlabel(r"$z$ [mm]")
+    methods = args.panels == "source-methods"
+    offset = float(getattr(args, "sampling_z_offset_mm", 0.0))
+    im = ax.contourf(zg_mm - offset, rg_mm, vz_grid, levels=60, cmap=args.velocity_cmap)
+    if not methods:
+        plot_idx = _plot_indices(samples, args)
+        ax.scatter(samples.z_birth_m[plot_idx] * 1.0e3 - offset, samples.r_m[plot_idx] * 1.0e3, s=3, c="white", alpha=0.25, linewidths=0)
+    _add_colorbar(fig, im, ax, cax, r"Gas $u_z$ / m s$^{-1}$")
+    ax.set_xlabel(r"$\zeta$ / mm" if methods else r"Sampling coordinate $\zeta$ / mm" if offset else r"CFD sampling coordinate $s$ / mm")
     ax.set_ylabel(r"$r$ [mm]")
     ax.set_ylim(0.0, r_max_mm)
     _set_panel_title(ax, "gas-vz-field", args)
 
 
 def _draw_vz_hist(ax, fig, samples: SourceSamples, args: argparse.Namespace, cax=None) -> None:
-    ax.hist(samples.vz_m_per_s, bins=int(args.velocity_bins), color="#3b7ddd", alpha=0.9)
-    ax.set_xlabel(r"$v_z$ [m/s]")
-    ax.set_ylabel("count")
+    methods = args.panels == "source-methods"
+    weights = np.full(len(samples.vz_m_per_s), 100.0 / len(samples.vz_m_per_s)) if methods else None
+    ax.hist(samples.vz_m_per_s, bins=int(args.velocity_bins), weights=weights, color="#426b86", alpha=0.95)
+    ax.set_xlabel(r"Sampled $v_z$ / m s$^{-1}$" if methods else r"$v_z$ [m/s]")
+    ax.set_ylabel("Samples per bin / %" if methods else "count")
     _set_panel_title(ax, "vz-hist", args)
     ax.grid(True, alpha=0.22)
 
@@ -450,7 +464,7 @@ def _draw_velocity_phase(ax, fig, samples: SourceSamples, args: argparse.Namespa
     color_by = str(args.phase_color_by).strip().lower()
     if color_by == "z":
         colors = samples.z_birth_m[plot_idx] * 1.0e3
-        color_label = "birth z [mm]"
+        color_label = "CFD sampling coordinate / mm"
     elif color_by == "r":
         colors = samples.r_m[plot_idx] * 1.0e3
         color_label = "source r [mm]"
@@ -487,6 +501,7 @@ def _draw_speed_hist(ax, fig, samples: SourceSamples, args: argparse.Namespace, 
 
 def _draw_panel(ax, fig, panel: str, samples: SourceSamples, args: argparse.Namespace, cax=None) -> None:
     draw = {
+        "source-schematic": _draw_source_schematic,
         "xy-density": _draw_xy_density,
         "xy-scatter": _draw_xy_scatter,
         "radial-density": _draw_radial_density,
@@ -499,6 +514,65 @@ def _draw_panel(ax, fig, panel: str, samples: SourceSamples, args: argparse.Name
         "speed-hist": _draw_speed_hist,
     }[panel]
     draw(ax, fig, samples, args, cax=cax)
+
+
+def _draw_source_schematic(ax, fig, samples: SourceSamples, args: argparse.Namespace, cax=None) -> None:
+    """Separate the auxiliary CFD query point from the actual injection plane."""
+    ax.set(xlim=(0, 1), ylim=(0, 1))
+    ax.axis("off")
+    blue, orange = "#30748b", "#bd6b2b"
+    left, right, bottom, top = .10, .70, .31, .67
+    ax.add_patch(Rectangle((left, bottom), right-left, top-bottom, facecolor="#ecf3f5", edgecolor="none"))
+    for y in (bottom, top):
+        ax.add_patch(Rectangle((left, y-.014), right-left, .028, facecolor="#acb2b6", edgecolor="#737b80", lw=.6))
+    ax.plot([.07, .94], [.49, .49], color="#a6afb3", ls="--", lw=.8)
+    ax.plot([right, right], [.20, .80], color=orange, lw=1.6)
+    ax.text(.40, .84, "CFD velocity-sampling region", ha="center", color=blue, fontsize=11)
+    ax.text(.40, .73, rf"$s={args.birth_z_min_mm:g}$-${args.birth_z_max_mm:g}$ mm;  $\zeta=s-{args.sampling_z_offset_mm:g}$ mm", ha="center", fontsize=10)
+    ax.annotate("", (left, .21), (right, .21), arrowprops={"arrowstyle":"|-|", "color":"#5d676c", "lw":.8})
+    ax.text(.40, .10, rf"$\zeta={args.birth_z_min_mm-args.sampling_z_offset_mm:g}$-${args.birth_z_max_mm-args.sampling_z_offset_mm:g}$ mm", ha="center", fontsize=10)
+    query = (.34, .57)
+    launch = (right, .57)
+    ax.plot(*query, "o", ms=7, color=blue, zorder=5)
+    ax.plot(*launch, "o", ms=7, color=orange, zorder=5)
+    ax.add_patch(FancyArrowPatch((query[0]+.015, query[1]), (right-.018, query[1]),
+                                arrowstyle="->", mutation_scale=12, linestyle="--", lw=1.2, color=orange))
+    ax.text(.52, .61, "velocity assignment", ha="center", color=orange, fontsize=10)
+    ax.text(.34, .37, r"Query $(r,s)$", ha="center", fontsize=10, color=blue)
+    ax.annotate("", (.075, .49), (.075, top), arrowprops={"arrowstyle":"<->", "lw":.8, "color":"#5d676c"})
+    ax.text(.063, .58, rf"$R_c={args.source_radius_mm:g}$ mm", rotation=90, ha="right", va="center", fontsize=9)
+    ax.annotate(rf"Injection plane" + "\n" + rf"$z_{{inj}}={args.injection_z_mm:g}$ mm",
+                (right, .24), (.81, .12), ha="center", va="center", fontsize=10,
+                arrowprops={"arrowstyle":"-", "lw":.8, "color":orange})
+    ax.annotate("Ion at $(x,y,z_{inj})$", launch, (.81, .72), fontsize=10, ha="center",
+                arrowprops={"arrowstyle":"-", "color":orange, "lw":.8})
+    ax.text(.83, .37, r"$v_z=u_z(r,s)$" + "\n" + r"$v_x=u_r\cos\theta$" + "\n" + r"$v_y=u_r\sin\theta$", fontsize=10, ha="center", va="center")
+
+
+def _make_source_methods(samples: SourceSamples, args: argparse.Namespace, output: Path) -> None:
+    fig = plt.figure(figsize=(11.4, 6.8), dpi=args.dpi)
+    ax = fig.add_axes([.07, .59, .915, .36])
+    _draw_source_schematic(ax, fig, samples, args)
+    axes = [ax]
+    for col, panel in enumerate(("xy-density", "gas-vz-field", "vz-hist")):
+        left = (.07, .425, .78)[col]
+        height = .205 * 11.4 / 6.8
+        ax = fig.add_axes([left, .13, .205, height])
+        cax = fig.add_axes([left+.22, .13, .012, height]) if _panel_uses_colorbar(panel, args) else None
+        _draw_panel(ax, fig, panel, samples, args, cax)
+        if cax is not None:
+            cax.yaxis.label.set_visible(False)
+            cax.set_title("Samples\n/ bin (%)" if panel == "xy-density" else "Gas $u_z$\n/ m s$^{-1}$",
+                          fontsize=9, pad=8)
+            cax.tick_params(labelsize=9)
+        ax.grid(False)
+        axes.append(ax)
+    add_subplot_labels(axes, enabled=args.subplot_labels, x=-.10, y=1.08, font_scale=.9, line_scale=1.)
+    fig.text(.52, .025, "CFD-derived velocities before any separately specified birth-energy increment.",
+             ha="center", fontsize=9, color="#515b62")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output)
+    plt.close(fig)
 
 
 def _create_group_axes(fig, rows: int, cols: int, panels: list[str], args: argparse.Namespace):
@@ -556,6 +630,10 @@ def _summary(samples: SourceSamples, args: argparse.Namespace, outputs: list[Pat
         "gas_source_z_min_mm": float(np.nanmin(gas.z_m) * 1.0e3),
         "gas_source_z_max_mm": float(np.nanmax(gas.z_m) * 1.0e3),
         "gas_source_r_max_mm": float(np.nanmax(gas.r_m) * 1.0e3),
+        "velocity_stage": "CFD-derived components before optional runtime birth-energy correction",
+        "sampling_z_offset_mm": float(args.sampling_z_offset_mm),
+        "injection_z_mm": float(args.injection_z_mm),
+        "sampling_coordinate_is_injection_position": False,
     }
 
 
@@ -580,7 +658,11 @@ def make_plot(args: argparse.Namespace) -> list[Path]:
     outputs: list[Path] = []
     base = _output_base(args)
 
-    if args.separate_panels:
+    if args.panels == "source-methods" and not args.separate_panels:
+        output = Path(args.output) if args.output else base.with_suffix(".png")
+        _make_source_methods(samples, args, output)
+        outputs.append(output)
+    elif args.separate_panels:
         for panel in panels:
             fig, ax = plt.subplots(figsize=_figure_size(1, 1), dpi=args.dpi, constrained_layout=True)
             _draw_panel(ax, fig, panel, samples, args)
@@ -638,7 +720,7 @@ def parse_args() -> argparse.Namespace:
         "--panels",
         default="paper",
         help=(
-            "Comma-separated panels or preset. Presets: paper, source, gas, all. "
+            "Comma-separated panels or preset. Presets: paper, source, gas, all, source-methods. "
             "Panels: xy-density, radial-density, birth-zr, vz-hist, vr-hist, "
             "velocity-phase, gas-vz-field, xy-scatter, birth-z-hist, speed-hist."
         ),
@@ -651,6 +733,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--source-radius-mm", type=float, default=0.15, help="Hard radial truncation radius [mm].")
     parser.add_argument("--birth-z-min-mm", type=float, default=0.0, help="Minimum raw tube z used for birth velocity [mm].")
     parser.add_argument("--birth-z-max-mm", type=float, default=4.4, help="Maximum raw tube z used for birth velocity [mm].")
+    parser.add_argument("--sampling-z-offset-mm", type=float, default=0., help="Subtract this from raw CFD coordinates for the displayed sampling axis.")
+    parser.add_argument("--injection-z-mm", type=float, default=6., help="Actual injection plane shown in the schematic; not a velocity query coordinate.")
     parser.add_argument("--radial-velocity-scale", type=float, default=1.0, help="Multiplier applied to sampled radial gas velocity.")
     parser.add_argument("--xy-limit-mm", type=float, default=0.0, help="Half-width for xy-density/xy-scatter axes [mm]. Use 0 for automatic.")
     parser.add_argument("--gas-vz-r-max-mm", type=float, default=0.0, help="Maximum r shown in gas-vz-field panel [mm]. Use 0 for automatic.")

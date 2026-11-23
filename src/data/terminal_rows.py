@@ -29,6 +29,7 @@ class NormalizedTerminalBatch:
     tof_s: np.ndarray
     electrode_ids: np.ndarray
     surface_distance_m: np.ndarray
+    dissociation_hazard: np.ndarray
 
 
 def normalize_terminal_batch(
@@ -41,6 +42,11 @@ def normalize_terminal_batch(
     parent = _parent_weights(batch, represented)
     fragments = _fragment_weights(batch, represented, parent)
     count = particle_indices.size
+    hazard = (
+        np.zeros(count, dtype=np.float64) if batch.dissociation_hazard is None
+        else np.asarray(batch.dissociation_hazard, dtype=np.float64)
+    )
+    _require_length(hazard, count, "dissociation_hazard")
     _require_length(parent, count, "parent_real_ions_remaining")
     _require_length(
         fragments,
@@ -64,6 +70,7 @@ def normalize_terminal_batch(
         tof_s=np.asarray(batch.tof_s, dtype=np.float64),
         electrode_ids=np.asarray(batch.electrode_ids, dtype=np.int32),
         surface_distance_m=np.asarray(batch.surface_distance_m, dtype=np.float64),
+        dissociation_hazard=hazard,
     )
 
 
@@ -177,4 +184,5 @@ def _build_row(
         "collision_count_per_ion": int(batch.collision_counts[offset]),
         "electrode_id": int(batch.electrode_ids[offset]),
         "surface_distance_m": float(batch.surface_distance_m[offset]),
+        "dissociation_hazard": float(batch.dissociation_hazard[offset]),
     }

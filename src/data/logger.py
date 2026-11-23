@@ -59,6 +59,7 @@ class DataLogger:
         "slot_id",
         "status_code",
         "collision_count_per_ion",
+        "dissociation_hazard",
     )
 
     units = {
@@ -80,6 +81,7 @@ class DataLogger:
         "slot_id": "integer",
         "status_code": "integer",
         "collision_count_per_ion": "count",
+        "dissociation_hazard": "dimensionless",
     }
 
     def __init__(
@@ -157,7 +159,7 @@ class DataLogger:
 
     def _write_metadata(self) -> None:
         metadata = {
-            "schema_version": 2,
+            "schema_version": 3,
             "columns": list(self.columns),
             "units": self.units,
             "file_format": self.file_format,
@@ -178,8 +180,8 @@ class DataLogger:
         data = np.asarray(particle_snapshot, dtype=np.float64)
         if data.ndim != 2:
             raise ValueError("particle_snapshot must be a 2D array.")
-        if data.shape[1] == 4 and len(self.columns) > 4:
-            padding = np.full((data.shape[0], len(self.columns) - 4), np.nan, dtype=np.float64)
+        if data.shape[1] in {4, 18} and data.shape[1] < len(self.columns):
+            padding = np.full((data.shape[0], len(self.columns) - data.shape[1]), np.nan, dtype=np.float64)
             data = np.column_stack((data, padding))
         if data.shape[1] != len(self.columns):
             raise ValueError(f"particle_snapshot must have shape (N, {len(self.columns)}).")

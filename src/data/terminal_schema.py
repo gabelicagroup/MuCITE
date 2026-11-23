@@ -28,6 +28,7 @@ TERMINAL_EVENT_FIELDNAMES = [
     "collision_count_per_ion",
     "electrode_id",
     "surface_distance_m",
+    "dissociation_hazard",
 ]
 
 DEFAULT_TERMINAL_EVENT_SAMPLE_SIZE = 50_000
