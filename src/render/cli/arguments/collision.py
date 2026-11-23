@@ -28,10 +28,14 @@ ARGUMENTS = (
     (("--iict-delta-s-j-per-mol-k",), dict(type=float, default=None, help="Eyring activation entropy [J/mol/K].")),
     (("--collision-model",), dict(choices=["explicit", "hybrid-langevin"], default=_defaults.collision_model, help="Collision update model.")),
     (("--fragmentation-mode",), dict(choices=["transport", "loss", "off"], default=_defaults.fragmentation_mode, help="Fragmentation handling.")),
+    (("--dissociation-check-every",), dict(type=int, default=_defaults.dissociation_check_every, help="Audit parent/exp(-hazard) consistency every N active microsteps; 0 audits terminal/final states only. Hazard is always updated each microstep.")),
     (("--langevin-z-start-mm",), dict(type=float, default=_defaults.langevin_z_start_m * 1.0e3, help="Langevin window start [mm].")),
     (("--langevin-z-end-mm",), dict(type=float, default=_defaults.langevin_z_end_m * 1.0e3, help="Langevin window end [mm].")),
     (("--langevin-switch-prob",), dict(type=float, default=_defaults.langevin_switch_probability, help="Langevin switch threshold.")),
     (("--langevin-max-dt-s",), dict(type=float, default=_defaults.langevin_max_dt_s, help="Maximum Langevin step [s].")),
+    (("--langevin-min-collisions",), dict(type=float, default=_defaults.langevin_min_collisions, help="Minimum expected events for a joint Gaussian collision substep; otherwise use binary events.")),
+    (("--langevin-max-relaxation",), dict(type=float, default=_defaults.langevin_max_relaxation, help="Maximum momentum relaxation gamma*dt per joint substep (0, 0.25].")),
+    (("--langevin-max-energy-fraction",), dict(type=float, default=_defaults.langevin_max_energy_fraction, help="Maximum expected/one-sigma internal-energy change relative to U per joint substep (0, 0.25].")),
 )
 
 

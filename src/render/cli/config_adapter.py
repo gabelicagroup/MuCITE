@@ -357,10 +357,13 @@ def _collision_overrides(context: _OverrideContext) -> dict[str, Any]:
     output["iict_cli_override_fields"] = tuple(cli_source_fields)
     _assign(output, context, "collision_model", "collision_model", str)
     _assign(output, context, "fragmentation_mode", "fragmentation_mode", str)
+    _assign(output, context, "dissociation_check_every", "dissociation_check_every", int)
     _assign(output, context, "langevin_z_start_mm", "langevin_z_start_m", lambda value: _nonnegative_float(value, "--langevin-z-start-mm") * 1.0e-3)
     _assign(output, context, "langevin_z_end_mm", "langevin_z_end_m", lambda value: _nonnegative_float(value, "--langevin-z-end-mm") * 1.0e-3)
     _assign(output, context, "langevin_switch_prob", "langevin_switch_probability", lambda value: max(0.0, float(value)))
     _assign(output, context, "langevin_max_dt_s", "langevin_max_dt_s", lambda value: max(0.0, float(value)))
+    for name in ("langevin_min_collisions", "langevin_max_relaxation", "langevin_max_energy_fraction"):
+        _assign(output, context, name, name, float)
     return output
 
 

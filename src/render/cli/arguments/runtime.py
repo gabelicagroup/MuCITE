@@ -13,7 +13,7 @@ ARGUMENTS = (
     (("--config",), dict(default="", help="Load a strict schema-v1 configuration JSON document.")),
     (("--write-config",), dict(default="", help="Write the final canonical configuration and exit.")),
     (("--backend",), dict(choices=["cpu", "taichi"], default=_execution.backend, help="Particle execution backend.")),
-    (("--gui",), dict(action="store_true", default=_execution.gui, help="Open the MuCITE graphical workbench.")),
+    (("--gui",), dict(action="store_true", default=_execution.gui, help="Open the MuCIT graphical workbench.")),
     (("--live-window",), dict(action="store_true", default=_execution.live_window, help="Open the runtime monitor.")),
     (("--no-window",), dict(action="store_true", default=_execution.no_window, help="Force command-line mode.")),
     (("--progress",), dict(action="store_true", default=_execution.progress, help="Print macro-step progress.")),

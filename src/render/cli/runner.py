@@ -255,3 +255,11 @@ def run_cli(argv: Optional[list[str]] = None) -> Optional[SimulationResult]:
     _print_result(result)
     _write_report(document, simulation, result, parsed.argv, report_hint)
     return result
+
+
+def main() -> int:
+    """Return a process status without discarding the Python API result."""
+    result = run_cli()
+    return int(result is not None and (
+        result.termination_reason == "numerical_failure" or bool(result.numerical_failure)
+    ))
