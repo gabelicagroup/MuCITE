@@ -1,6 +1,7 @@
 """Create a clean GitHub ZIP, excluding runtimes, outputs, and build caches."""
 
 from pathlib import Path
+import tomllib
 import zipfile
 
 from check_release import ROOT, audit_source, source_files
@@ -10,12 +11,14 @@ def main() -> None:
     audit = audit_source()
     if audit["errors"]:
         raise SystemExit(str(audit))
-    output = ROOT / "dist" / "MuCITE-github.zip"
+    version = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
+    prefix = f"MuCITE-{version}"
+    output = ROOT / "dist" / f"{prefix}-github.zip"
     output.parent.mkdir(exist_ok=True)
     count = 0
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for path, relative in source_files():
-            archive.write(path, "MuCITE/" + relative)
+            archive.write(path, prefix + "/" + relative)
             count += 1
     print(f"{output.name}: {count} files, {output.stat().st_size} bytes")
 
